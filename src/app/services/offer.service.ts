@@ -7,6 +7,7 @@ import { AddOfferRequest } from '../interfaces/addOfferRequest';
 import { AddOfferFieldsLists } from '../interfaces/addOfferFieldsLists';
 import { ICity } from '../interfaces/ICity';
 import { ResponseMultipleData } from '../interfaces/responseMultiple';
+import { IUpdateOffer } from '../interfaces/updateOffer';
 
 @Injectable({
   providedIn: 'root'
@@ -31,18 +32,20 @@ export class OfferService {
       `${this.api_url}/offers` ,{headers : this.headers}
       );
     }
+
+
   getEmployerOffers() : Observable<Response<Offer[]>>{
 
     return this.http
     .get<Response<Offer[]>>(
             `${this.api_url}/offers?employer=${this.employer_id}`, {headers : this.headers}
             );
-          }
+    }
 
-  saveOffer(offer: AddOfferRequest) {
+  saveOffer(offer: AddOfferRequest) : Observable<Response<Offer>>{
     return this.http
-    .get<Response<Offer[]>>(
-            `${this.api_url}/offers/add`, {headers : this.headers}
+    .post<Response<Offer>>(
+            `${this.api_url}/offers/add`, offer, {headers : this.headers}
             );
   }
 
@@ -53,23 +56,25 @@ export class OfferService {
       );
     }
 
-    getCitites() {
-      // const where = encodeURIComponent(JSON.stringify({
-      //   "asciiname": {
-      //     "$exists": true
-      //   }
-      // }))
-      const cities_url = `https://parseapi.back4app.com/classes/List_of_Morroco_cities?limit=300&order=asciiname&keys=asciiname`;
+  getCitites() {
+    const cities_url = `https://parseapi.back4app.com/classes/List_of_Morroco_cities?limit=300&order=asciiname&keys=asciiname`;
 
-      const headers = new HttpHeaders({
-        'X-Parse-Application-Id': '2ZOfB60kP39M5kE4WynRqyP7lNGKZ9MB8fVWqAM9', // This is the fake app's application id
-        'X-Parse-Master-Key': 'Qq7lEIoEEzRris3IM6POE5ewvYuzACVyA6VKtiVb', // This is the fake app's readonly master key
-      });
+    const headers = new HttpHeaders({
+      'X-Parse-Application-Id': '2ZOfB60kP39M5kE4WynRqyP7lNGKZ9MB8fVWqAM9', // This is the fake app's application id
+      'X-Parse-Master-Key': 'Qq7lEIoEEzRris3IM6POE5ewvYuzACVyA6VKtiVb', // This is the fake app's readonly master key
+    });
 
-      return this.http.get<ICity>(
-        cities_url,{headers : headers}
+    return this.http.get<ICity>(
+      cities_url,{headers : headers}
+    );
+  }
+
+  updateOfferStatus(offer:IUpdateOffer){
+    return this.http
+    .post<Response<Offer>>(
+      `${this.api_url}/offers/update-status` ,{headers : this.headers}
       );
+  }
 
-   }
 }
 

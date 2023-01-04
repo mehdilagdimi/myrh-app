@@ -1,7 +1,10 @@
+import { Offer } from 'src/app/interfaces/offer';
 import { OfferService } from './../../services/offer.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ICity } from 'src/app/interfaces/ICity';
+import { ICity} from 'src/app/interfaces/ICity';
+import { ImageService } from 'src/app/services/image.service';
+import { ImageSnippet } from 'src/app/interfaces/ImageSnippet';
 
 @Component({
   selector: 'app-add-offer',
@@ -10,12 +13,14 @@ import { ICity } from 'src/app/interfaces/ICity';
 })
 export class AddOfferComponent implements OnInit {
   addOfferForm!:FormGroup;
+  addedOffer!:Offer;
   offerTypes:String[] = []
   educations:String[] = []
   profiles:String[] = []
   cities:any[] = []
+  selectedImage!:ImageSnippet;
 
-  constructor(private offerService:OfferService) {
+  constructor(private offerService:OfferService, private imageService:ImageService) {
     this.offerService.getAddOfferFields().subscribe(
       response => {
                  this.offerTypes = response.data.offerType;
@@ -45,7 +50,7 @@ export class AddOfferComponent implements OnInit {
       profile: new FormControl('',[
         Validators.required,
         ],),
-      city: new FormControl('',[
+      ville: new FormControl('',[
         Validators.required
         ],),
       education: new FormControl('',[
@@ -63,14 +68,62 @@ export class AddOfferComponent implements OnInit {
   get title (){ return this.addOfferForm.get('title')};
   get description (){ return this.addOfferForm.get('description')};
   get education (){ return this.addOfferForm.get('education')};
-  get city (){ return this.addOfferForm.get('city')};
+  get ville (){ return this.addOfferForm.get('ville')};
   get profile (){ return this.addOfferForm.get('profile')};
   get offerType (){ return this.addOfferForm.get('offerType')};
   get salary (){ return this.addOfferForm.get('salary')};
 
   onSubmit(event:any) {
-    this.offerService.saveOffer(this.addOfferForm.value);
-    console.log(event)
+    this.selectedImage.pending = true;
+
+    this.offerService.saveOffer(this.addOfferForm.value).subscribe(
+      response => {
+          if(response.status == 201){
+            this.addedOffer = response.data.data;
+            this.imageService.uploadImage(this.selectedImage.file, this.addedOffer.id!).subscribe(
+              {
+                next: (v) => this.onSuccess(),
+                error: (e) => this.onError(),
+                complete: () => console.info('complete')
+              }
+            )
+          } else {
+            this.onError()
+          }
+        }
+      );
+    console.log(this.addOfferForm.value)
   }
+
+  private onSuccess() {
+    this.selectedImage.pending = false;
+    this.selectedImage.status = 'ok';
+  }
+
+  private onError() {
+    this.selectedImage.pending = false;
+    this.selectedImage.status = 'fail';
+    this.selectedImage.src = '';
+  }
+
+
+  processImage(imageInput:any){
+    const file: File = imageInput.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event: any) => {
+
+      this.selectedImage = new ImageSnippet(event.target.result, file);
+      this.selectedImage.pending = true;
+
+      console.log("beofre prome ", this.selectedImage.pending)
+      new Promise(resolve => setTimeout(resolve, 1000)).then(
+        () => this.selectedImage.pending = false
+      )
+    });
+
+    reader.readAsDataURL(file);
+  }
+
 
 }

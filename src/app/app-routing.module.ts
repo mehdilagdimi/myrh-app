@@ -13,7 +13,7 @@ const routes: Routes = [
   {path : '', redirectTo: 'home', pathMatch: 'full'},
   {path : 'home',  component: HomeComponent},
   {path : 'offers', component: OffersComponent, canActivate: [AuthGuard]},
-  {path : 'add-offer', component: AddOfferComponent},
+  {path : 'add-offer', component: AddOfferComponent, canActivate: [AuthGuard]},
   {path : 'signup', component: SignupComponent},
   {path : 'login', component: LoginComponent},
   {path : "**", component : PageNotFoundComponent}

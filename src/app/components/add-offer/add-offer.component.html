@@ -9,7 +9,7 @@
           <form [formGroup]="addOfferForm" (ngSubmit)="onSubmit($event)" method="post" name="loginfom" id="formId">
               <div class="text-center text-lg font-semibold text-black">
                   <!-- <img src="assets/testlogo.png" fill="currentColor" class="mx-auto h-36"/> -->
-                  <h3>Signup</h3>
+                  <h3>ADDING OFFER</h3>
               </div>
               <div>
                   <div class="m-5 text-center rounded-sm">
@@ -62,12 +62,12 @@
                           <input formControlName="ville" class="w-full bg-white border border-gray-100 outline-none py-3 px-2" type="text" name="ville"
                                  placeholder="City" required>
                       </div> -->
-                      <select id="city" formControlName="city" name="city" class="border">
-                        <option *ngFor="let city of cities" [ngValue]="city" [selected]="city === 'BAC'">{{ city.asciiname }}</option>
+                      <select id="ville" formControlName="ville" name="ville" class="border">
+                        <option *ngFor="let city of cities" [ngValue]="city.asciiname" [selected]="city === 'BAC'">{{ city.asciiname }}</option>
                       </select>
-                      <div *ngIf="city?.invalid && (city?.dirty || city?.touched)"
+                      <div *ngIf="ville?.invalid && (ville?.dirty || ville?.touched)"
                       class="text-red-500 text-sm">
-                          <div *ngIf="city?.errors?.['required']">
+                          <div *ngIf="ville?.errors?.['required']">
                               City is required.
                           </div>
                       </div>
@@ -119,7 +119,7 @@
                   class="text-red-500 text-sm">
 
                       <div *ngIf="description?.errors?.['required']">
-                          Occupation is required.
+                          Description is required.
                       </div>
                   </div>
 
@@ -131,7 +131,31 @@
                           <h4 class="text-sm font-light italic text-red-500">Invalid credentials, try again</h4>
                   </div> -->
 
-              <div class="text-center w-full px-5" id="btnContainerId">
+                <label class="image-upload-container btn btn-bwm m-4">
+                  <span>Select Image</span>
+                  <input #imageInput
+                         type="file"
+                         accept="image/*"
+                         (change)="processImage(imageInput)">
+                </label>
+
+                  <div *ngIf="selectedImage" class="bg-gray-50 p-2 m-2">
+
+                    <div class="img-preview{{selectedImage.status === 'fail' ? '-error' : ''}} h-44"
+                         [ngStyle]="{'background-image': 'url('+ selectedImage.src + ')'}">
+
+                    </div>
+
+                    <div *ngIf="selectedImage.pending" class="img-loading-overlay">
+                      <div class="img-spinning-circle"></div>
+                    </div>
+
+                    <div *ngIf="selectedImage.status === 'ok'" class="alert alert-success"> Image Uploaded Succesfuly!</div>
+                    <div *ngIf="selectedImage.status === 'fail'" class="alert alert-danger"> Image Upload Failed!</div>
+                  </div>
+
+
+              <div class="text-center w-full px-5 my-4" id="btnContainerId">
               </div>
                   <button type="submit" [disabled]="!addOfferForm.valid" id="submitBtnId"
                           class='w-full {{!addOfferForm.valid ? "bg-gray-400" : "bg-custPurple"}}  shadow-sm rounded-sm py-3 text-white text-md font-regular'

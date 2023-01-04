@@ -1,0 +1,146 @@
+
+<div class="bg-white w-full relative flex flex-row justify-center overflow-hidden px-4">
+  <!-- <div class="w-full hidden sm:w-[250px] md:w-[400px] lg:w-[1200px] bg-grey-50 sm:flex  justify-content-center align-items-center">
+      <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_xhlbndhm.json" class="text-center "
+                     background="transparent" speed="1" loop autoplay></lottie-player>
+  </div> -->
+  <div class="w-[500px] bg-white grid grid-cols-12 grid-rows-4 p-4">
+      <div class="flex flex-col justify-around  col-start-2 col-end-12 row-start-1 row-end-4">
+          <form [formGroup]="addOfferForm" (ngSubmit)="onSubmit($event)" method="post" name="loginfom" id="formId">
+              <div class="text-center text-lg font-semibold text-black">
+                  <!-- <img src="assets/testlogo.png" fill="currentColor" class="mx-auto h-36"/> -->
+                  <h3>Signup</h3>
+              </div>
+              <div>
+                  <div class="m-5 text-center rounded-sm">
+                      <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                      <label for="address">Title</label>
+                      <div class="border-l-4 border-custPurple rounded-sm">
+                          <input formControlName="title" class="w-full bg-white border border-gray-100 outline-none py-3 px-2" type="text" name="title"
+                                 placeholder="Title" required>
+                      </div>
+                      <div *ngIf="title?.invalid && (title?.dirty || title?.touched)"
+                      class="text-red-500 text-sm">
+
+                          <div *ngIf="title?.errors?.['required']">
+                              Title is required.
+                          </div>
+
+                      </div>
+                  </div>
+                  <div class="m-5 text-center rounded-sm">
+                      <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                      <label for="role">Contract</label>
+                      <select id="role" formControlName="offerType" name="offerType" class="border">
+                        <option *ngFor="let offerType of offerTypes" [ngValue]="offerType" [selected]="offerType === 'CDI'">{{ offerType }}</option>
+                      </select>
+                      <div *ngIf="offerType?.invalid && (offerType?.dirty || offerType?.touched)"
+                      class="text-red-500 text-sm">
+                          <div *ngIf="offerType?.errors?.['required']">
+                              Contract Type is required.
+                          </div>
+                      </div>
+                  </div>
+                  <div class="m-5 text-center rounded-sm">
+                      <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                      <label for="address">Sector</label>
+                      <select id="sector" formControlName="profile" name="profile" class="border">
+                        <option *ngFor="let profile of profiles" [ngValue]="profile">{{ profile }}</option>
+                      </select>
+                      <div *ngIf="profile?.invalid && (profile?.dirty || profile?.touched)"
+                      class="text-red-500 text-sm">
+                          <div *ngIf="profile?.errors?.['required']">
+                              Sector is required.
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="m-5 text-center rounded-sm">
+                      <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                      <label for="city">City</label>
+                      <!-- <div class="border-l-4 border-custPurple rounded-sm">
+                          <input formControlName="ville" class="w-full bg-white border border-gray-100 outline-none py-3 px-2" type="text" name="ville"
+                                 placeholder="City" required>
+                      </div> -->
+                      <select id="city" formControlName="city" name="city" class="border">
+                        <option *ngFor="let city of cities" [ngValue]="city" [selected]="city === 'BAC'">{{ city.asciiname }}</option>
+                      </select>
+                      <div *ngIf="city?.invalid && (city?.dirty || city?.touched)"
+                      class="text-red-500 text-sm">
+                          <div *ngIf="city?.errors?.['required']">
+                              City is required.
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="m-5 text-center rounded-sm">
+                    <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                    <label for="address">Education</label>
+                    <select id="education" formControlName="education" name="education" class="border">
+                      <option *ngFor="let education of educations" [ngValue]="education" [selected]="education === 'BAC'">{{ education }}</option>
+                    </select>
+                    <div *ngIf="education?.invalid && (education?.dirty || education?.touched)"
+                    class="text-red-500 text-sm">
+                        <div *ngIf="education?.errors?.['required']">
+                            Education is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-5 text-center rounded-sm">
+                  <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                  <label for="address">Salary</label>
+                  <div class="border-l-4 border-custPurple rounded-sm">
+                      <input formControlName="salary" class="w-full bg-white border border-gray-100 outline-none py-3 px-2" type="number" step="0.1" name="salary"
+                             placeholder="Salary in DHs" required>
+                  </div>
+                  <div *ngIf="salary?.invalid && (salary?.dirty || salary?.touched)"
+                  class="text-red-500 text-sm">
+                      <div *ngIf="salary?.errors?.['required']">
+                          This field is required.
+                      </div>
+                  </div>
+
+                </div>
+
+                <div class="m-5 text-center rounded-sm">
+                  <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                  <label for="role">Description</label>
+                  <div class="">
+                    <textarea
+                        formControlName="description"
+
+                        rows="2"
+                        placeholder="Offer details..."
+                        class="border-l-4 border-custPurple rounded-sm bg-gray-50 m-0 px-4 py-2 w-full h-full"
+                    ></textarea>
+                  </div>
+                  <div *ngIf="description?.invalid && (description?.dirty || description?.touched)"
+                  class="text-red-500 text-sm">
+
+                      <div *ngIf="description?.errors?.['required']">
+                          Occupation is required.
+                      </div>
+                  </div>
+
+                </div>
+                  <!-- <div>
+                          <div class="col-span-2 bg-red-200 ">
+
+                          </div>
+                          <h4 class="text-sm font-light italic text-red-500">Invalid credentials, try again</h4>
+                  </div> -->
+
+              <div class="text-center w-full px-5" id="btnContainerId">
+              </div>
+                  <button type="submit" [disabled]="!addOfferForm.valid" id="submitBtnId"
+                          class='w-full {{!addOfferForm.valid ? "bg-gray-400" : "bg-custPurple"}}  shadow-sm rounded-sm py-3 text-white text-md font-regular'
+                  >
+                      NEW
+                  </button>
+              </div>
+          </form>
+
+  </div>
+
+</div>

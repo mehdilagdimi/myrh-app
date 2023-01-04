@@ -1,4 +1,16 @@
 <p>List of offers!</p>
 
-<app-offer [offer]="offer"  *ngFor="let offer of offers"></app-offer>
+<app-offer [offer]="offer"  *ngFor="let offer of offers | paginate: config"></app-offer>
 
+<pagination-controls [id]="config.id!"
+                         [maxSize]="maxSize"
+                         [directionLinks]="directionLinks"
+                         [autoHide]="autoHide"
+                         [responsive]="responsive"
+                         [previousLabel]="labels.previousLabel"
+                         [nextLabel]="labels.nextLabel"
+                         [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+                         [screenReaderPageLabel]="labels.screenReaderPageLabel"
+                         [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+                         (pageChange)="onPageChange($event)"
+                         (pageBoundsCorrection)="onPageBoundsCorrection($event)"></pagination-controls>

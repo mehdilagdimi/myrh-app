@@ -7,6 +7,7 @@ interface Offer {
   publicationDate: Date;
   isExpired: Boolean;
   offreType: String;
+  offerStatus: String;
   profile: String;
   ville: String;
   education: String;

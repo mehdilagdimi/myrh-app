@@ -1,12 +1,10 @@
-interface Response<T> {
+interface ResponseMultipleData<T> {
   date: String;
-  data:{
-    data: T;
-  }
+  data:T
   status: Number;
   responseStatus: String;
   message: String;
 }
 
 
-export { Response };
+export { ResponseMultipleData };

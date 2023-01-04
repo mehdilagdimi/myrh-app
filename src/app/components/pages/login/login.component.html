@@ -1,0 +1,67 @@
+
+<div class="bg-white w-full relative flex min-h-screen flex-row justify-center overflow-hidden py-6 px-4 sm:py-12">
+
+    <div class="w-[450px] bg-white grid grid-cols-12 grid-rows-6 p-4 border shadow-md">
+      <div class="flex flex-col justify-around  col-start-2 col-end-12 row-start-2 row-end-6">
+
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" method="post" name="loginfom" id="formId">
+              <div>
+                  <div class="m-5 text-center rounded-sm">
+                      <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                      <div class="border-l-4 border-custPurple rounded-sm">
+                          <input formControlName="email" class="w-full bg-gray-50 outline-none py-3 px-2" type="email" name="email"
+                                 placeholder="Email" required>
+                      </div>
+                      <div *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+                              class="text-red-500 text-sm">
+
+                                  <div *ngIf="email?.errors?.['required']">
+                                      Email is required.
+                                  </div>
+                                  <div *ngIf="email?.errors?.['email']">
+                                      Email must be a valid email.
+                                  </div>
+                      </div>
+
+                  </div>
+                  <div class="m-5 text-center rounded-sm">
+                      <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                      <div class="border-l-4 border-custPurple rounded-sm">
+                          <input formControlName="password" class="w-full bg-gray-50 outline-none py-3 px-2" type="password" name="password"
+                                 placeholder="Password" required>
+                      </div>
+                      <div *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+                          class="text-red-500 text-sm">
+
+                                  <div *ngIf="password?.errors?.['required']">
+                                      Password is required.
+                                  </div>
+                                  <div *ngIf="password?.errors?.['pattern']">
+                                      Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.
+                                  </div>
+
+                          </div>
+                  </div>
+                      <!-- <div class="m-5 text-center rounded-sm">
+                          <div class="border-l-4 border-custPurple rounded-sm">
+                          </div>
+                      </div> -->
+                  <!-- <div>
+                          <div class="col-span-2 bg-red-200 ">
+
+                          </div>
+                          <h4 class="text-sm font-light italic text-red-500">Invalid credentials, try again</h4>
+                  </div> -->
+
+
+                  <button type="submit" [disabled]="!loginForm.valid" id="submitBtnId"
+                          class='w-full {{!loginForm.valid ? "bg-gray-400" : "bg-custPurple"}}  shadow-sm rounded-sm py-3 text-white font-regular'
+                  >
+                      SUBMIT
+                  </button>
+              </div>
+          </form>
+
+    </div>
+
+</div>

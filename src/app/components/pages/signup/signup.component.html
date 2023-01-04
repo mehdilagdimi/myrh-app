@@ -1,0 +1,154 @@
+
+<div class="bg-white w-full relative flex flex-row justify-center overflow-hidden px-4">
+    <!-- <div class="w-full hidden sm:w-[250px] md:w-[400px] lg:w-[1200px] bg-grey-50 sm:flex  justify-content-center align-items-center">
+        <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_xhlbndhm.json" class="text-center "
+                       background="transparent" speed="1" loop autoplay></lottie-player>
+    </div> -->
+    <div class="w-[500px] bg-white grid grid-cols-12 grid-rows-4 p-4">
+        <div class="flex flex-col justify-around  col-start-2 col-end-12 row-start-1 row-end-4">
+            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" method="post" name="loginfom" id="formId">
+                <div class="text-center text-lg font-semibold text-black">
+                    <!-- <img src="assets/testlogo.png" fill="currentColor" class="mx-auto h-36"/> -->
+                    <h3>Signup</h3>
+                </div>
+                <div>
+                    <div class="m-5 text-center rounded-sm">
+                        <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                        <label for="address">Username</label>
+                        <div class="border-l-4 border-custPurple rounded-sm">
+                            <input formControlName="username" class="w-full bg-white border border-gray-100 outline-none py-3 px-2" type="text" name="username"
+                                   placeholder="Username" required>
+                        </div>
+                        <div *ngIf="username?.invalid && (username?.dirty || username?.touched)"
+                        class="text-red-500 text-sm">
+
+                            <div *ngIf="username?.errors?.['required']">
+                                Username is required.
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="m-5 text-center rounded-sm">
+                        <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                        <label for="address">Email</label>
+                        <div class="border-l-4 border-custPurple rounded-sm">
+                            <input formControlName="email" class="w-full border border-gray-100 {{email?.valid && (email?.dirty || email?.touched) ? 'bg-green-50' : 'bg-white'}} outline-none py-3 px-2" type="email" name="email"
+                                   placeholder="Email" required>
+                        </div>
+                        <div *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+                        class="text-red-500 text-sm">
+
+                            <div *ngIf="email?.errors?.['required']">
+                                Email is required.
+                            </div>
+                            <div *ngIf="email?.errors?.['email']">
+                                Email must be a valid email.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-5 text-center rounded-sm">
+                        <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                        <label for="address">Password</label>
+                        <div class="border-l-4 border-custPurple rounded-sm">
+                            <input formControlName="password" class="w-full bg-white border border-gray-100 outline-none py-3 px-2" type="password" name="password"
+                                   placeholder="Password" required>
+                        </div>
+                        <div *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+                        class="text-red-500 text-sm">
+
+                            <div *ngIf="password?.errors?.['required']">
+                                Password is required.
+                            </div>
+                            <div *ngIf="password?.errors?.['pattern']">
+                                Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="m-5 text-center rounded-sm">
+                        <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                        <label for="address">Repeat Password</label>
+                        <div class="border-l-4 border-custPurple rounded-sm">
+                            <input formControlName="repeatpassword" class="w-full bg-white border border-gray-100 outline-none py-3 px-2" type="password" name="repeatpassword"
+                                   placeholder="Repeat Password" required>
+                        </div>
+                        <div *ngIf="repeatpassword?.invalid && (repeatpassword?.dirty || repeatpassword?.touched)"
+                        class="text-red-500 text-sm">
+
+                            <div *ngIf="repeatpassword?.errors?.['required']">
+                                Password is required.
+                            </div>
+                            <div *ngIf="repeatpassword?.errors?.['pattern']">
+                                Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="m-5 text-center rounded-sm">
+                      <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                      <label for="address">Address</label>
+                      <div class="border-l-4 border-custPurple rounded-sm">
+                          <input formControlName="address" class="w-full bg-white border border-gray-100 outline-none py-3 px-2" type="text" name="address"
+                                 placeholder="Address" required>
+                      </div>
+                      <div *ngIf="address?.invalid && (address?.dirty || address?.touched)"
+                      class="text-red-500 text-sm">
+
+                          <div *ngIf="address?.errors?.['required']">
+                              Address is required.
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="m-5 text-center rounded-sm">
+                    <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                    <label for="address">Phone</label>
+                    <div class="border-l-4 border-custPurple rounded-sm">
+                        <input formControlName="tele" class="w-full bg-white border border-gray-100 outline-none py-3 px-2" type="text" name="tele"
+                               placeholder="Phone" required>
+                    </div>
+                    <div *ngIf="tele?.invalid && (tele?.dirty || tele?.touched)"
+                    class="text-red-500 text-sm">
+
+                        <div *ngIf="tele?.errors?.['required']">
+                            Phone is required.
+                        </div>
+                    </div>
+
+                  </div>
+
+                  <div class="m-5 text-center rounded-sm">
+                    <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                    <label for="role">Signup As</label>
+                    <select id="role" formControlName="role" name="role" class="border">
+                      <option *ngFor="let role of roles" [ngValue]="'ROLE_'+role" [selected]="role === 'EMPLOYER'">{{ role }}</option>
+                  </select>
+                    <div *ngIf="role?.invalid && (role?.dirty || role?.touched)"
+                    class="text-red-500 text-sm">
+
+                        <div *ngIf="role?.errors?.['required']">
+                            Occupation is required.
+                        </div>
+                    </div>
+
+                  </div>
+                    <!-- <div>
+                            <div class="col-span-2 bg-red-200 ">
+
+                            </div>
+                            <h4 class="text-sm font-light italic text-red-500">Invalid credentials, try again</h4>
+                    </div> -->
+
+                <div class="text-center w-full px-5" id="btnContainerId">
+                </div>
+                    <button type="submit" [disabled]="!signupForm.valid" id="submitBtnId"
+                            class='w-full {{!signupForm.valid ? "bg-gray-400" : "bg-custPurple"}}  shadow-sm rounded-sm py-3 text-white text-md font-regular'
+                    >
+                        SUBMIT
+                    </button>
+                </div>
+            </form>
+
+    </div>
+
+</div>

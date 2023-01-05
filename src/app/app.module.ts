@@ -19,6 +19,10 @@ import { SignupComponent } from './components/pages/signup/signup.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { AppHttpInterceptor } from './interceptors/http.interceptor';
 import { AddOfferComponent } from './components/add-offer/add-offer.component';
+import { OffersSideBarComponent } from './components/offers-side-bar/offers-side-bar.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { NavbarComponent } from './components/layout/navbar/navbar.component';
+import { FooterComponent } from './components/layout/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +34,11 @@ import { AddOfferComponent } from './components/add-offer/add-offer.component';
     OffersComponent,
     OffersPageComponent,
     EmployerDashboardComponent,
-    AddOfferComponent
+    AddOfferComponent,
+    OffersSideBarComponent,
+    SearchBarComponent,
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

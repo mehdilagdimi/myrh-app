@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { PaginationInstance } from 'ngx-pagination';
 
@@ -36,5 +37,5 @@ export class OffersPageComponent implements OnInit {
 
   private popped = [];
 
-  
+
 }

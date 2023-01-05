@@ -1,3 +1,4 @@
+import { OffersPageComponent } from './components/pages/offers-page/offers-page.component';
 import { AddOfferComponent } from './components/add-offer/add-offer.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -11,7 +12,7 @@ import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {path : '', redirectTo: 'home', pathMatch: 'full'},
-  {path : 'home',  component: HomeComponent},
+  {path : 'home',  component: OffersPageComponent},
   {path : 'offers', component: OffersComponent, canActivate: [AuthGuard]},
   {path : 'add-offer', component: AddOfferComponent, canActivate: [AuthGuard]},
   {path : 'signup', component: SignupComponent},

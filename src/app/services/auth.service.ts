@@ -1,6 +1,6 @@
 import { LocalStorageService } from './local-storage.service';
 import { SignupRequest } from 'src/app/interfaces/signupRequest';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user';
@@ -11,13 +11,16 @@ import { LoginRequest } from '../interfaces/loginRequest';
   providedIn: 'root'
 })
 export class AuthService {
+  isLoading!:boolean;
+  authLoading = new Subject<boolean>();
 
   private _url = "http://localhost:8080/api";
-  // private login_url = "http://localhost:8080/api/signup";
-
   private jwt!:String;
 
-  constructor(private http: HttpClient, private localStorageService:LocalStorageService) { }
+
+  constructor(private http: HttpClient, private localStorageService:LocalStorageService) {
+     this.authLoading.subscribe((value) => this.isLoading = value)
+   }
 
   signup(newUser : SignupRequest) : Observable<Response<String>>{
     const headers = new HttpHeaders({
@@ -41,10 +44,15 @@ export class AuthService {
               `${this._url}/auth`, loginCredentials, {headers}
             ).subscribe(response => {
               this.jwt = response.data.data;
-              this.localStorageService.set("myrh-token", this.jwt.toString())
+              this.localStorageService.set("myrh-token", this.jwt.toString());
+              this.toggleIsLoading(false);
             });
   }
 
+  toggleIsLoading(isLoading:boolean):boolean{
+    this.authLoading.next(isLoading);
+    return isLoading;
+  }
   logout() {
     localStorage.removeItem("myrh-token");
   }

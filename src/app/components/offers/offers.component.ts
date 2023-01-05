@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { OfferService } from './../../services/offer.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Offer } from 'src/app/interfaces/offer';
@@ -13,7 +14,7 @@ export class OffersComponent implements OnInit {
   @Input("getForEmployer") getFor:Boolean = false;
   response!:Response<Offer[]>;
   offers!: Offer[];
-
+  isLoading!:boolean;
 
   constructor(private offerService: OfferService) { }
 
@@ -41,12 +42,14 @@ export class OffersComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.isLoading = true;
     if(!this.getFor){
       this.offerService
       .getOffers()
       .subscribe( response => {
         this.response = response
         this.offers = this.response?.data.data;
+        this.isLoading = false;
         // console.log("data offers " + this.offers);
       });
     } else {
@@ -55,6 +58,7 @@ export class OffersComponent implements OnInit {
       .subscribe( response => {
         this.response = response
         this.offers = this.response?.data.data;
+        this.isLoading = false;
         // console.log("data offers " + this.offers);
       });
     }

@@ -59,6 +59,11 @@
                   >
                       SUBMIT
                   </button>
+
+                  <div *ngIf="loading" class="loading-overlay">
+                      <div class="spinning-circle"></div>
+                  </div>
+
               </div>
           </form>
 

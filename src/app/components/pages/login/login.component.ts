@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, Form } from '@angular/forms';
@@ -13,8 +14,11 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  loading!:boolean;
 
-  constructor(private router:Router, private authService: AuthService, private localStorageService:LocalStorageService) { }
+  constructor(private router:Router, private authService: AuthService, private localStorageService:LocalStorageService) {
+    this.loading = this.authService.isLoading;
+  }
   loginForm!:FormGroup;
 
   ngOnInit(): void {
@@ -37,15 +41,24 @@ export class LoginComponent implements OnInit {
   get password() { return this.loginForm.get('password'); }
 
 
-  onSubmit() {
+   onSubmit() {
+    this.authService.toggleIsLoading(true);
     this.authService.login(this.loginForm.value);
     console.warn(this.loginForm.value);
-    this.router.navigateByUrl("/home");
+    this.router.navigate(['/home'])
+        .then(() => {
+          window.location.reload();
+    });
+    // this.router.navigateByUrl("/home");
   }
 
 
   hasRoute(route : string) : boolean {
     return this.router.url === route;
+  }
+
+  ngOnDestroy() {
+    if(this.authService.isLoading) this.authService.toggleIsLoading(false);
   }
 
 }

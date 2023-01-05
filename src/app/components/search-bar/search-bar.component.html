@@ -1,17 +1,22 @@
 <div class="grid grid-cols-7 gap-2">
   <div class="col-span-6 flex justify-around">
     <div class="flex-grow bg-white  m-0">
-        <input class="h-full w-full border px-2 py-3" placeholder="Search by keyword" />
+        <input class="h-full w-full border px-3 py-3 outline-none" placeholder="Search by keyword" />
     </div>
-    <div class="flex-none bg-white  m-0">
-        <input class="border px-2 py-3 h-full w-full" placeholder="City" />
+    <div class="flex-none bg-white m-0">
+         <select id="city" formControlName="city" name="city" class="border h-full w-full px-3  outline-none">
+          <option [ngValue]="undefined" [disabled]="true">City</option>
+          <option *ngFor="let city of cities" [ngValue]="city.asciiname">{{ city.asciiname }}</option>
+        </select>
     </div>
-    <div class="flex-none bg-white  m-0">
-        <input class="border px-2 py-3 h-full w-full" placeholder="Contract" />
+    <div class="flex-none bg-white m-0">
+      <select id="contract" formControlName="contract" name="contract" class="border h-full w-full px-3  outline-none">
+        <option  *ngFor="let contract of contracts" [ngValue]="contract" [selected]="contract === 'CDI'">{{ contract }}</option>
+      </select>
     </div>
   </div>
-  <div class="bg-custPurple">
-    <button class="w-full h-full px-2 py-4 text-white rounded-sm shadow-sm text-center font-semibold">Search</button>
+  <div class="bg-custPurple rounded-sm">
+    <button class="w-full h-full px-2 py-4 text-white shadow-sm text-center font-semibold">Search</button>
   </div>
 
 </div>

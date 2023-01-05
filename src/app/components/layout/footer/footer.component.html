@@ -1,3 +1,4 @@
+<ng-container *ngIf="!hasRoute('/login') && !hasRoute('/signup')">
 <footer class="text-center bg-custGray text-black">
   <div class="container mx-auto pt-6">
     <div class="flex justify-center mb-6">
@@ -110,3 +111,4 @@
     <a class="text-black" href="http://localhost:4200/">myHR</a>
   </div>
 </footer>
+</ng-container>

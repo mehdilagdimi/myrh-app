@@ -1,16 +1,16 @@
-<div class="w-full h-full my-4">
+<div class="w-full h-full my-4 hover:scale-[1.03] duration-1000 ease-in-out hover:-z-40">
   <div class="flex flex-row justify-between ">
 
       <!-- image  -->
       <div class="rounded-tl-sm rounded-bl-sm">
-          <img class="h-96 object-cover md:h-auto md:w-48" src="assets/offer-img.jpg" />
+          <img class="h-96 object-cover md:h-auto md:w-48" src="assets/offer.jpg" />
       </div>
 
       <!-- Content : title & some details like date, city... -->
-      <div class="w-full flex flex-col justify-center shadow-sm rounded-sm border">
-          <p class="pb-2 ml-10 font-thin text-md">{{offer.employer.username}}</p>
+      <div class="w-full flex flex-col justify-center shadow-sm rounded-sm border bg-white ">
+          <p class="pb-2 mx-6 font-thin text-md">{{offer.employer.username}}</p>
           <p class="ml-6 font-bold text-lg">{{offer.title}}</p>
-          <div class="py-2 block">
+          <div class="py-2 block mx-2">
               <p class="inline mx-4 font-thin text-md">{{offer.offreType}}</p>
               <p class="inline mx-4 font-thin text-md">{{offer.ville}}</p>
               <p class="inline mx-4 font-thin text-md">{{offer.publicationDate | date:'dd/MM/yyyy h:mma' }}</p>

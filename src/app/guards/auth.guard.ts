@@ -28,13 +28,16 @@ export class AuthGuard implements CanActivate {
       if (this.jwtService.getUser()) {
         if (this.jwtService.isTokenExpired()) {
             console.log(" user inside token expired ")
-           isAuthenticated = false;
+            this.authStorageService.remove("myrh-token");
+            isAuthenticated = false;
         }
-      }
-    } else {
+      } else {
         isAuthenticated = false;
-        this.router.navigateByUrl("/login");
-    }
+      }
+    } else {isAuthenticated = false;}
+
+      if(!isAuthenticated) this.router.navigateByUrl("/login");
+
       return isAuthenticated;
     }
 

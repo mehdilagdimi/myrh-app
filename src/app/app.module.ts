@@ -1,5 +1,5 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +23,12 @@ import { OffersSideBarComponent } from './components/offers-side-bar/offers-side
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
+import { AgentDashboardComponent } from './components/pages/agent-dashboard/agent-dashboard.component';
+import { EmployerSideBarComponent } from './components/layout/employer-side-bar/employer-side-bar.component';
 @NgModule({
+  schemas: [
+     CUSTOM_ELEMENTS_SCHEMA
+  ],
   declarations: [
     AppComponent,
     SignupComponent,
@@ -38,7 +43,9 @@ import { FooterComponent } from './components/layout/footer/footer.component';
     OffersSideBarComponent,
     SearchBarComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    AgentDashboardComponent,
+    EmployerSideBarComponent
   ],
   imports: [
     BrowserModule,

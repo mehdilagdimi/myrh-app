@@ -1,3 +1,4 @@
+import { JwtHandlerService } from './jwt-handler.service';
 import { LocalStorageService } from './local-storage.service';
 import { SignupRequest } from 'src/app/interfaces/signupRequest';
 import { Observable, Subject, Subscription } from 'rxjs';
@@ -18,7 +19,10 @@ export class AuthService {
   private jwt!:String;
 
 
-  constructor(private http: HttpClient, private localStorageService:LocalStorageService) {
+  constructor(
+    private http: HttpClient,
+    private localStorageService:LocalStorageService
+    ) {
      this.authLoading.subscribe((value) => this.isLoading = value)
    }
 
@@ -60,6 +64,7 @@ export class AuthService {
   // public isLoggedIn() {
   //     return moment().isBefore(this.getExpiration());
   // }
+ 
 
   // isLoggedOut() {
   //     return !this.isLoggedIn();

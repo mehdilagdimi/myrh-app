@@ -1,3 +1,25 @@
-<p>employer-dashboard works!</p>
 
-<app-offers [getForEmployer]=true></app-offers>
+<div class="flex justify-between bg-gray-100">
+  <div class="w-40 min-h-screen bg-gray-50">
+    <employer-side-bar></employer-side-bar>
+  </div>
+  <div class="w-8/12 mx-auto">
+    <div class="flex justify-end my-4">
+      <button (click)="isNewOfferPopup = true" class="px-6 py-3 bg-gray-300 font-semibold rounded-sm shadow-sm hover:bg-custPurple hover:text-white" type="button">
+        NEW
+      </button>
+    </div>
+    <app-offers [getForEmployer]=true></app-offers>
+  </div>
+</div>
+
+
+
+ <div class="overlay w-full z-[999]" *ngIf="isNewOfferPopup">
+     <div class="popup mx-auto mt-[120px]">
+         <a class="close mb-3 z-[999]" (click)="isNewOfferPopup = false">&times;</a>
+         <div class="content mt-8 h-[500px] overflow-y-auto">
+            <app-add-offer></app-add-offer>
+         </div>
+     </div>
+ </div>

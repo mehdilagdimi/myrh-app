@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./employer-dashboard.component.css']
 })
 export class EmployerDashboardComponent implements OnInit {
-
+  isNewOfferPopup:boolean = false;
   constructor() { }
 
   ngOnInit(): void {

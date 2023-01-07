@@ -11,7 +11,8 @@ import { PaginationInstance } from 'ngx-pagination';
   styleUrls: ['./offers.component.css']
 })
 export class OffersComponent implements OnInit {
-  @Input("getForEmployer") getFor:Boolean = false;
+  @Input("getForEmployer") getForEmp!:Boolean;
+  @Input("getForAgent") getForAgn!:Boolean;
   response!:Response<Offer[]>;
   offers!: Offer[];
   isLoading!:boolean;
@@ -43,7 +44,7 @@ export class OffersComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    if(!this.getFor){
+    if(!this.getForEmp){
       this.offerService
       .getOffers()
       .subscribe( response => {

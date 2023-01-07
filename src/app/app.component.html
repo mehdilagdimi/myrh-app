@@ -3,7 +3,7 @@
   <div class="conent-wrap">
       <app-navbar></app-navbar>
       <!-- <app-home></app-home> -->
-      <div class="mt-20">
+      <div [ngClass]="hasRoute(['/login', '/signup']) ? '' : 'mt-20'">
         <router-outlet></router-outlet>
       </div>
     </div>

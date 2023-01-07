@@ -25,6 +25,7 @@ import { NavbarComponent } from './components/layout/navbar/navbar.component';
 import { FooterComponent } from './components/layout/footer/footer.component';
 import { AgentDashboardComponent } from './components/pages/agent-dashboard/agent-dashboard.component';
 import { EmployerSideBarComponent } from './components/layout/employer-side-bar/employer-side-bar.component';
+import { AgentSideBarComponent } from './components/agent-side-bar/agent-side-bar.component';
 @NgModule({
   schemas: [
      CUSTOM_ELEMENTS_SCHEMA
@@ -45,7 +46,8 @@ import { EmployerSideBarComponent } from './components/layout/employer-side-bar/
     NavbarComponent,
     FooterComponent,
     AgentDashboardComponent,
-    EmployerSideBarComponent
+    EmployerSideBarComponent,
+    AgentSideBarComponent
   ],
   imports: [
     BrowserModule,

@@ -15,20 +15,22 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 })
 export class LoginComponent implements OnInit {
   loading!:boolean;
+  loginForm!:FormGroup;
+  isAuthenticated:Boolean = false;
 
   constructor(private router:Router, private authService: AuthService, private localStorageService:LocalStorageService) {
     this.loading = this.authService.isLoading;
+    this.isAuthenticated = this.authService.isAuthenticated;
   }
-  loginForm!:FormGroup;
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('thisemail', [
+      email: new FormControl('', [
           Validators.required,
           Validators.email
         ]
       ),
-      password: new FormControl('this.password',[
+      password: new FormControl('',[
         Validators.required,
         // Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
       ],)
@@ -45,11 +47,20 @@ export class LoginComponent implements OnInit {
     this.authService.toggleIsLoading(true);
     this.authService.login(this.loginForm.value);
     console.warn(this.loginForm.value);
-    this.router.navigate(['/home'])
-        .then(() => {
-          window.location.reload();
-    });
-    // this.router.navigateByUrl("/home");
+    console.warn("is auth after login", this.authService.isAuthenticated);
+    if(this.authService.isAuthenticated){
+      this.router.navigate(['/home'])
+          .then(() => {
+            window.location.reload();
+      });
+    }
+     else {
+      this.router.navigate(['/login'])
+          .then(() => {
+            window.location.reload();
+      });
+      // this.router.navigateByUrl("/login");
+    }
   }
 
 

@@ -1,5 +1,6 @@
 import { OfferService } from './../../services/offer.service';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-search-bar',
@@ -9,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class SearchBarComponent implements OnInit {
   cities!:any[]
   contracts!:String[]
+  searchForm!:FormGroup;
+
   constructor(private offerService:OfferService) {
     this.offerService.getCitites().subscribe(
       response => this.cities = response.results)
@@ -19,7 +22,23 @@ export class SearchBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.searchForm = new FormGroup({
+    //   city: new FormControl('thisemail', [
+    //     // Validators.required,
 
+    //   ]
+    // ),
+    // contract: new FormControl('this.password',[
+    //   // Validators.required,
+    //   // Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
+    // ],)
+
+    // });
+
+  }
+
+  onSubmit(){
+    //submit search
   }
 
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SignupRequest } from 'src/app/interfaces/signupRequest';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -14,9 +15,9 @@ export class SignupComponent implements OnInit {
   signupRequest!:SignupRequest;
   // signupRequest:SignupRequest = new SignupRequest();
 
-  roles:String[] = ["EMPLOYER", "VISITOR"]
+  roles:String[] = ["EMPLOYER", "VISITOR", "AGENT"]
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router:Router) {
     this.signupForm = new FormGroup({
       username : new FormControl('',[
         Validators.required,
@@ -81,6 +82,11 @@ export class SignupComponent implements OnInit {
         next: data => console.log("data ", data ),
         error: err => console.error(err)
       });
+
+      this.router.navigate(['/login'])
+      .then(() => {
+        window.location.reload();
+  });
   }
 
 

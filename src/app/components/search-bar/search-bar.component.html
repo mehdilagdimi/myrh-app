@@ -1,22 +1,24 @@
+<form (ngSubmit)="onSubmit()" method="post" name="loginfom" id="formId">
 <div class="grid grid-cols-7 gap-2">
   <div class="col-span-6 flex justify-around">
     <div class="flex-grow bg-white  m-0">
         <input class="h-full w-full border px-3 py-3 outline-none" placeholder="Search by keyword" />
     </div>
     <div class="flex-none bg-white m-0">
-         <select id="city" formControlName="city" name="city" class="border h-full w-full px-3  outline-none">
+         <select id="city"  name="city" class="border h-full w-full px-3  outline-none">
           <option [ngValue]="undefined" [disabled]="true">City</option>
           <option *ngFor="let city of cities" [ngValue]="city.asciiname">{{ city.asciiname }}</option>
         </select>
     </div>
     <div class="flex-none bg-white m-0">
-      <select id="contract" formControlName="contract" name="contract" class="border h-full w-full px-3  outline-none">
-        <option  *ngFor="let contract of contracts" [ngValue]="contract" [selected]="contract === 'CDI'">{{ contract }}</option>
+      <select id="contract"  name="contract" class="border h-full w-full px-3  outline-none">
+        <option [ngValue]="undefined" [disabled]="true">Contract</option>
+        <option  *ngFor="let contract of contracts" [ngValue]="contract">{{ contract }}</option>
       </select>
     </div>
   </div>
   <div class="bg-custPurple rounded-sm">
     <button class="w-full h-full px-2 py-4 text-white shadow-sm text-center font-semibold">Search</button>
   </div>
-
 </div>
+</form>

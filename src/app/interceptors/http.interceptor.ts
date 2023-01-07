@@ -1,3 +1,4 @@
+import { JwtHandlerService } from './../services/jwt-handler.service';
 import { LocalStorageService } from './../services/local-storage.service';
 import { Injectable } from '@angular/core';
 import {
@@ -15,6 +16,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
 
   constructor(
     private authService: AuthService,
+    private jwtService:JwtHandlerService,
     private authStorageService:LocalStorageService,
     private router:Router
     ) {}
@@ -22,17 +24,23 @@ export class AppHttpInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
     const token = this.authStorageService.get("myrh-token");
+    this.jwtService.setToken(token!);
 
     //check if requesting another domain other than localhost so we don't include Authorization header
     if(request.url.includes("parseapi.back4app.com")) return next.handle(request);
 
     if (token) {
-        const clonedReq = request.clone({
-            headers: request.headers
-                  .set("Authorization", "Bearer " + token)
-        });
+      if(this.jwtService.isTokenExpired()) {
+        this.authStorageService.remove("myrh-token");
+        return next.handle(request);
+      }
 
-        return next.handle(clonedReq);
+      const clonedReq = request.clone({
+          headers: request.headers
+                .set("Authorization", "Bearer " + token)
+      });
+
+      return next.handle(clonedReq);
     } else {
         return next.handle(request);
     }

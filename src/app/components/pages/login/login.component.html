@@ -54,12 +54,14 @@
                           <h4 class="text-sm font-light italic text-red-500">Invalid credentials, try again</h4>
                   </div> -->
 
+                  <div class="w-full flex justify-center">
+                    <button type="submit" [disabled]="!loginForm.valid" id="submitBtnId"
+                            class='w-full mx-4 inline-block {{!loginForm.valid ? "bg-gray-400" : "bg-custPurple"}}  shadow-sm rounded-sm py-3 text-white font-regular'
+                    >
+                        SUBMIT
+                    </button>
 
-                  <button type="submit" [disabled]="!loginForm.valid" id="submitBtnId"
-                          class='w-full {{!loginForm.valid ? "bg-gray-400" : "bg-custPurple"}}  shadow-sm rounded-sm py-3 text-white font-regular'
-                  >
-                      SUBMIT
-                  </button>
+                  </div>
 
                   <div *ngIf="loading" class="loading-overlay">
                       <div class="spinning-circle"></div>
@@ -69,5 +71,6 @@
           </form>
 
     </div>
+
 
 </div>

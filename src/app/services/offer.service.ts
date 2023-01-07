@@ -32,10 +32,15 @@ export class OfferService {
       `${this.api_url}/offers` ,{headers : this.headers}
       );
     }
+  getWaitingOffers() : Observable<Response<Offer[]>>{
+    return this.http
+    .get<Response<Offer[]>>(
+      `${this.api_url}/offers?status=waiting` ,{headers : this.headers}
+      );
+    }
 
 
   getEmployerOffers() : Observable<Response<Offer[]>>{
-
     return this.http
     .get<Response<Offer[]>>(
             `${this.api_url}/offers?employer=${this.employer_id}`, {headers : this.headers}
@@ -72,7 +77,7 @@ export class OfferService {
   updateOfferStatus(offer:IUpdateOffer){
     return this.http
     .post<Response<Offer>>(
-      `${this.api_url}/offers/update-status` ,{headers : this.headers}
+      `${this.api_url}/offers/update-status` , offer, {headers : this.headers}
       );
   }
 

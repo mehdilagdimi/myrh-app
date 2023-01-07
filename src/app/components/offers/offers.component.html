@@ -1,7 +1,7 @@
 
 <div class="flex flex-col justify-center items-center">
   <div class="w-full">
-    <app-offer [offer]="offer"  *ngFor="let offer of offers | paginate: config"></app-offer>
+    <app-offer [isShowDetails]="getForEmp || getForAgn" [offer]="offer"  *ngFor="let offer of offers | paginate: config"></app-offer>
   </div>
   <div class="mx-auto  my-8">
     <pagination-controls  [id]="config.id!"

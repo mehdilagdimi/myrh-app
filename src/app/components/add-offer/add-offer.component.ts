@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ICity} from 'src/app/interfaces/ICity';
 import { ImageService } from 'src/app/services/image.service';
 import { ImageSnippet } from 'src/app/interfaces/ImageSnippet';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-offer',
@@ -20,7 +21,7 @@ export class AddOfferComponent implements OnInit {
   cities:any[] = []
   selectedImage!:ImageSnippet;
 
-  constructor(private offerService:OfferService, private imageService:ImageService) {
+  constructor(private offerService:OfferService, private imageService:ImageService, private router:Router) {
     this.offerService.getAddOfferFields().subscribe(
       response => {
                  this.offerTypes = response.data.offerType;
@@ -44,13 +45,13 @@ export class AddOfferComponent implements OnInit {
         Validators.required
       ]
       ),
-      offerType: new FormControl('',[
+      offerType: new FormControl("CDI",[
         Validators.required,
         ],),
-      profile: new FormControl('',[
+      profile: new FormControl([
         Validators.required,
         ],),
-      ville: new FormControl('',[
+      ville: new FormControl([
         Validators.required
         ],),
       education: new FormControl('',[
@@ -74,25 +75,30 @@ export class AddOfferComponent implements OnInit {
   get salary (){ return this.addOfferForm.get('salary')};
 
   onSubmit(event:any) {
-    this.selectedImage.pending = true;
+    if(this.selectedImage) this.selectedImage.pending = true;
 
     this.offerService.saveOffer(this.addOfferForm.value).subscribe(
       response => {
           if(response.status == 201){
             this.addedOffer = response.data.data;
-            this.imageService.uploadImage(this.selectedImage.file, this.addedOffer.id!).subscribe(
-              {
-                next: (v) => this.onSuccess(),
-                error: (e) => this.onError(),
-                complete: () => console.info('complete')
-              }
-            )
+            if(this.selectedImage) this.uploadImage();
+            window.location.reload();
           } else {
             this.onError()
           }
         }
       );
     console.log(this.addOfferForm.value)
+  }
+
+  uploadImage(){
+    this.imageService.uploadImage(this.selectedImage.file, this.addedOffer.id!).subscribe(
+      {
+        next: (v) => this.onSuccess(),
+        error: (e) => this.onError(),
+        complete: () => console.info('complete')
+      }
+    )
   }
 
   private onSuccess() {

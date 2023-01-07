@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import  jwt_decode from 'jwt-decode';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class JwtHandlerService {
     jwtToken!: string;
     decodedToken!: { [key: string]: string };
 
-    constructor() {
+    constructor(private storageService:LocalStorageService) {
     }
 
     setToken(token: string) {
@@ -19,6 +20,7 @@ export class JwtHandlerService {
     }
 
     decodeToken() {
+      if(!this.jwtToken) this.jwtToken = this.storageService.get("myrh-token")!;
       if (this.jwtToken) {
        this.decodedToken = jwt_decode(this.jwtToken);
       }
@@ -50,9 +52,10 @@ export class JwtHandlerService {
     isTokenExpired(): boolean {
       const expiryTime: any = this.getExpiryTime();
       if (expiryTime) {
-        return ((expiryTime) - ((new Date()).getTime() / 1000)) < 5;
+        // console.log(" inside expired ", (expiryTime * 1000) - (new Date()).getTime())
+        return ((expiryTime * 1000) - (new Date()).getTime()) < 500;
       } else {
-        return false;
+        return true;
       }
     }
 }

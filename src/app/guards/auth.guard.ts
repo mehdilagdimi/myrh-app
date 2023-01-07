@@ -5,6 +5,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from 'rxjs';
 import { LocalStorageService } from '../services/local-storage.service';
 import { JwtHandlerService } from '../services/jwt-handler.service';
+import { ThisReceiver } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     var isAuthenticated:boolean = true;
     var token = this.authStorageService.get("myrh-token");
-
+    console.log("route in ", route.url.toString());
     if(token){
       console.log(" token inside guard ", token)
       this.jwtService.setToken(token);
@@ -30,12 +31,15 @@ export class AuthGuard implements CanActivate {
             console.log(" user inside token expired ")
             this.authStorageService.remove("myrh-token");
             isAuthenticated = false;
+        }else if(route.url.toString() == "login" || route.url.toString() == "signup"){
+          this.router.navigateByUrl("/home")
         }
       } else {
         isAuthenticated = false;
       }
     } else {isAuthenticated = false;}
 
+      if(route.url.toString() == "login" || route.url.toString() == "signup") return true;
       if(!isAuthenticated) this.router.navigateByUrl("/login");
 
       return isAuthenticated;

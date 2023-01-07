@@ -13,7 +13,7 @@ interface Offer {
   education: String;
   salary: Number;
   image?: User;
-  offerDetails?: {
+  offerDetails: {
     id: Number;
     description: String;
   };

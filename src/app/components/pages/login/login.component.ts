@@ -48,17 +48,17 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value);
     console.warn(this.loginForm.value);
     console.warn("is auth after login", this.authService.isAuthenticated);
-    if(this.authService.isAuthenticated){
-      this.router.navigate(['/home'])
-          .then(() => {
-            window.location.reload();
-      });
-    }
-     else {
-      this.router.navigate(['/login'])
-          .then(() => {
-            window.location.reload();
-      });
+    // if(this.authService.isAuthenticated){
+    //   this.router.navigate(['/home'])
+    //       .then(() => {
+    //         window.location.reload();
+    //   });
+    // }
+    //  else {
+    //   this.router.navigate(['/login'])
+    //       .then(() => {
+    //         window.location.reload();
+    //   });
       // this.router.navigateByUrl("/login");
     }
   }

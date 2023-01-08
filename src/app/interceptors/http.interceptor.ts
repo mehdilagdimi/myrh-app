@@ -31,7 +31,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
 
     if (token) {
       if(this.jwtService.isTokenExpired()) {
-        this.authStorageService.remove("myrh-token");
+        // this.authStorageService.remove("myrh-token");
         return next.handle(request);
       }
 

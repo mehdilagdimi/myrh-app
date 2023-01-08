@@ -69,9 +69,11 @@ export class AuthService {
             ).subscribe(response => {
               if(response.status == 200){
                 this.jwt = response.data.data;
-                this.localStorageService.set("myrh-token", this.jwt.toString());
+                console.log(" this jwt", this.jwt)
+                console.log(" this jwt to strign", this.jwt.toString())
+                console.log(" this jwt json stringify", JSON.stringify(this.jwt))
+                this.localStorageService.set("myrh-token", JSON.stringify(this.jwt));
                 this.setAuthState(true);
-                console.log(" isnide status 200 , auth state", this.isAuthenticated)
               } else {
                 this.setAuthState(false);
               }

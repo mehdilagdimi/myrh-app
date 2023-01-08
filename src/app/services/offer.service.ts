@@ -8,6 +8,7 @@ import { AddOfferFieldsLists } from '../interfaces/addOfferFieldsLists';
 import { ICity } from '../interfaces/ICity';
 import { ResponseMultipleData } from '../interfaces/responseMultiple';
 import { IUpdateOffer } from '../interfaces/updateOffer';
+import { API_URL } from 'src/config/api.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,7 @@ export class OfferService {
   private headers!:HttpHeaders;
 
   employer_id:Number = 2;
-  private api_url = "http://localhost:8080/api";
-  // private getEmployerOffers_url = "http://localhost:8080/api/offers?employer="+ this.employer_id;
+
 
 
   constructor(private http: HttpClient) {
@@ -29,13 +29,13 @@ export class OfferService {
   getOffers() : Observable<Response<Offer[]>>{
     return this.http
     .get<Response<Offer[]>>(
-      `${this.api_url}/offers` ,{headers : this.headers}
+      `${API_URL}/offers` ,{headers : this.headers}
       );
     }
   getWaitingOffers() : Observable<Response<Offer[]>>{
     return this.http
     .get<Response<Offer[]>>(
-      `${this.api_url}/offers?status=waiting` ,{headers : this.headers}
+      `${API_URL}/offers?status=waiting` ,{headers : this.headers}
       );
     }
 
@@ -43,21 +43,21 @@ export class OfferService {
   getEmployerOffers() : Observable<Response<Offer[]>>{
     return this.http
     .get<Response<Offer[]>>(
-            `${this.api_url}/offers?employer=${this.employer_id}`, {headers : this.headers}
+            `${API_URL}/offers?employer=${this.employer_id}`, {headers : this.headers}
             );
     }
 
   saveOffer(offer: AddOfferRequest) : Observable<Response<Offer>>{
     return this.http
     .post<Response<Offer>>(
-            `${this.api_url}/offers/add`, offer, {headers : this.headers}
+            `${API_URL}/offers/add`, offer, {headers : this.headers}
             );
   }
 
   getAddOfferFields() {
     return this.http
     .get<ResponseMultipleData<AddOfferFieldsLists>>(
-      `${this.api_url}/offers/fields-options-list` ,{headers : this.headers}
+      `${API_URL}/offers/fields-options-list` ,{headers : this.headers}
       );
     }
 
@@ -77,7 +77,7 @@ export class OfferService {
   updateOfferStatus(offer:IUpdateOffer){
     return this.http
     .post<Response<Offer>>(
-      `${this.api_url}/offers/update-status` , offer, {headers : this.headers}
+      `${API_URL}/offers/update-status` , offer, {headers : this.headers}
       );
   }
 

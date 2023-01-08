@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user';
 import { Response } from '../interfaces/response';
 import { LoginRequest } from '../interfaces/loginRequest';
+import { API_URL } from 'src/config/api.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class AuthService {
   isLoading!:boolean;
   authLoading = new Subject<boolean>();
 
-  private _url = "http://localhost:8080/api";
+
   private jwt!:String;
 
 
@@ -54,7 +55,7 @@ export class AuthService {
     console.log(" new user " + newUser.password)
     return this.http
             .post<any>(
-              `${this._url}/signup`, newUser, {headers}
+              `${API_URL}/signup`, newUser, {headers}
             );
   }
 
@@ -64,7 +65,7 @@ export class AuthService {
     })
     return this.http
             .post<Response<String>>(
-              `${this._url}/auth`, loginCredentials, {headers}
+              `${API_URL}/auth`, loginCredentials, {headers}
             ).subscribe(response => {
               if(response.status == 200){
                 this.jwt = response.data.data;

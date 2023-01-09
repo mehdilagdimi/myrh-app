@@ -10,6 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   userEmail!:string;
+  userRole!:string;
+  dashboard!:string;
   loginPath:string = "/login"
   isAuthenticated!:boolean;
 
@@ -20,6 +22,10 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.userEmail = this.jwtService.getEmail()!;
+    this.userRole = this.jwtService.getRole()!;
+    if(this.userRole == "ROLE_EMPLOYER") this.dashboard = "/employer";
+    else if(this.userRole == "ROLE_AGENT") this.dashboard = "/agent";
+
     console.log(" is authenticated " , this.isAuthenticated)
   }
 

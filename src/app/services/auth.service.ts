@@ -19,9 +19,6 @@ export class AuthService {
   authLoading = new Subject<boolean>();
 
 
-  private jwt!:String;
-
-
   constructor(
     private http: HttpClient,
     private localStorageService:LocalStorageService,
@@ -59,35 +56,20 @@ export class AuthService {
             );
   }
 
-  login(loginCredentials : LoginRequest) : Subscription{
+  login(loginCredentials : LoginRequest) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     })
     return this.http
             .post<Response<String>>(
               `${API_URL}/auth`, loginCredentials, {headers}
-            ).subscribe(response => {
-              if(response.status == 200){
-                this.jwt = response.data.data;
-                console.log(" this jwt", this.jwt)
-                console.log(" this jwt to strign", this.jwt.toString())
-                console.log(" this jwt json stringify", JSON.stringify(this.jwt))
-                this.localStorageService.set("myrh-token", JSON.stringify(this.jwt));
-                this.setAuthState(true);
-              } else {
-                this.setAuthState(false);
-              }
-              this.toggleIsLoading(false);
-            });
+            );
   }
 
   setAuthState(authState:boolean){
-    //echo the new value
-    // console.log(" inside set auth", String(authState))
-    // console.log(authState.toString())
     this.authStateSubject.next(authState);
-
   }
+
   getAuthState() : Observable<boolean>{
     return this.authStateSubject.asObservable();
   }

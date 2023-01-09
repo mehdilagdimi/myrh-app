@@ -14,6 +14,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  private jwt!:String;
   loading!:boolean;
   loginForm!:FormGroup;
   isAuthenticated:Boolean = false;
@@ -45,20 +46,29 @@ export class LoginComponent implements OnInit {
 
    onSubmit() {
     this.authService.toggleIsLoading(true);
-    this.authService.login(this.loginForm.value);
-    console.warn(this.loginForm.value);
+    this.authService.login(this.loginForm.value).subscribe(response => {
+      if(response.status == 200){
+        this.jwt = response.data.data;
+        console.log(" this jwt to strign", this.jwt.toString())
+        this.localStorageService.set("myrh-token", this.jwt.toString());
+        this.authService.setAuthState(true);
+
+        this.router.navigate(['/home'])
+          .then(() => {
+            window.location.reload();
+      });
+      } else {
+        this.authService.setAuthState(false);
+
+        this.router.navigate(['/login'])
+          .then(() => {
+            window.location.reload();
+      });
+      }
+      this.authService.toggleIsLoading(false);
+    })
     console.warn("is auth after login", this.authService.isAuthenticated);
     // if(this.authService.isAuthenticated){
-    //   this.router.navigate(['/home'])
-    //       .then(() => {
-    //         window.location.reload();
-    //   });
-    // }
-    //  else {
-    //   this.router.navigate(['/login'])
-    //       .then(() => {
-    //         window.location.reload();
-    //   });
     // }
   }
 

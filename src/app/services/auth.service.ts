@@ -15,8 +15,8 @@ import { API_URL } from 'src/config/api.constants';
 export class AuthService {
   authStateSubject!:BehaviorSubject<boolean>;
   isAuthenticated!:boolean;
-  isLoading!:boolean;
-  authLoading = new Subject<boolean>();
+  // isLoading!:boolean;
+  // authLoading = new Subject<boolean>();
 
 
   constructor(
@@ -25,7 +25,7 @@ export class AuthService {
     private jwtService:JwtHandlerService
     ) {
 
-     this.authLoading.subscribe((value:any) => this.isLoading = value)
+    //  this.authLoading.subscribe((value:any) => this.isLoading = value)
 
 
      if(!this.jwtService.isTokenExpired()) {
@@ -73,10 +73,11 @@ export class AuthService {
   getAuthState() : Observable<boolean>{
     return this.authStateSubject.asObservable();
   }
-  toggleIsLoading(isLoading:boolean):boolean{
-    this.authLoading.next(isLoading);
-    return isLoading;
-  }
+
+  // toggleIsLoading(isLoading:boolean):boolean{
+    // this.authLoading.next(isLoading);
+  //   return isLoading;
+  // }
 
 
   logout() {

@@ -10,7 +10,6 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 import { AppComponent } from './app.component';
 import { OfferComponent } from './components/offer/offer.component';
-import { HomeComponent } from './components/pages/home/home.component';
 import { PageNotFoundComponent } from './components/pages/page-not-found/page-not-found.component';
 import { OffersComponent } from './components/offers/offers.component';
 import { OffersPageComponent } from './components/pages/offers-page/offers-page.component';
@@ -35,7 +34,6 @@ import { AgentSideBarComponent } from './components/agent-side-bar/agent-side-ba
     SignupComponent,
     LoginComponent,
     OfferComponent,
-    HomeComponent,
     PageNotFoundComponent,
     OffersComponent,
     OffersPageComponent,

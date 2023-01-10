@@ -11,11 +11,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  isSuccess!:Boolean;
+  loadingSignupResult!:Boolean;
+  animationSrc!:string;
   signupForm!:FormGroup;
   signupRequest!:SignupRequest;
   // signupRequest:SignupRequest = new SignupRequest();
 
-  roles:String[] = ["EMPLOYER", "VISITOR", "AGENT"]
+  roles:String[] = ["EMPLOYER", "VISITOR"]
 
   constructor(private authService: AuthService, private router:Router) {
     this.signupForm = new FormGroup({
@@ -42,8 +45,9 @@ export class SignupComponent implements OnInit {
       tele: new FormControl('',[
         Validators.required
         ],),
-      role: new FormControl(this.roles[0],[
-        Validators.required
+      role: new FormControl("EMPLOYER",[
+        Validators.required,
+        Validators.pattern("^(?!ROLE_AGENT).*$")
         ],),
     })
     // this.signupForm.setValue({role : this.roles[0]})
@@ -79,14 +83,28 @@ export class SignupComponent implements OnInit {
     //signup user
     this.authService.signup(rest).subscribe(
       {
-        next: data => console.log("data ", data ),
-        error: err => console.error(err)
+        next: data => {
+          console.log("data ", data );
+          this.isSuccess = true;
+        },
+        error: err => this.isSuccess = false
+      }).add(() => {
+        this.displayCompletionAnimation();
       });
+  }
 
+  displayCompletionAnimation(){
+    if(this.isSuccess) this.animationSrc = "https://assets3.lottiefiles.com/packages/lf20_lk80fpsm.json";
+    else this.animationSrc = "https://assets9.lottiefiles.com/packages/lf20_q9ik4qqj.json";
+    this.loadingSignupResult = true;
+
+    setTimeout(()=> {
+      this.loadingSignupResult = false;
       this.router.navigate(['/login'])
-      .then(() => {
-        window.location.reload();
-  });
+              .then(() => {
+                window.location.reload();
+            });
+    }, 1500);
   }
 
 

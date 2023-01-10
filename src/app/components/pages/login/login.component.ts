@@ -16,11 +16,13 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 export class LoginComponent implements OnInit {
   private jwt!:String;
   loading!:boolean;
+  loadingLoginResult!:boolean;
   loginForm!:FormGroup;
   isAuthenticated:Boolean = false;
+  animationSrc!:string;
 
   constructor(private router:Router, private authService: AuthService, private localStorageService:LocalStorageService) {
-    this.loading = this.authService.isLoading;
+    // this.loading = this.authService.isLoading;
     this.isAuthenticated = this.authService.isAuthenticated;
   }
 
@@ -45,32 +47,49 @@ export class LoginComponent implements OnInit {
 
 
    onSubmit() {
-    this.authService.toggleIsLoading(true);
-    this.authService.login(this.loginForm.value).subscribe(response => {
-      if(response.status == 200){
-        this.jwt = response.data.data;
-        console.log(" this jwt to strign", this.jwt.toString())
-        this.localStorageService.set("myrh-token", this.jwt.toString());
-        this.authService.setAuthState(true);
+    this.loading = true;
+    this.authService.login(this.loginForm.value).subscribe({
+        next : (response) => {
+          if(response.status == 200){
+            this.jwt = response.data.data;
+            this.localStorageService.set("myrh-token", this.jwt.toString());
+            this.authService.setAuthState(true);
+            this.isAuthenticated = true;
+          }
+        },
 
-        this.router.navigate(['/home'])
-          .then(() => {
-            window.location.reload();
-      });
-      } else {
-        this.authService.setAuthState(false);
-
-        this.router.navigate(['/login'])
-          .then(() => {
-            window.location.reload();
-      });
+        error : (err) => {
+          this.authService.setAuthState(false);
+          this.isAuthenticated = false;
+          console.log(" inside fail login")
+          // this.router.navigate(['/login'])
+          //   .then(() => {
+          //     window.location.reload();
+          // });
+        },
+        complete : ()=> {}
       }
-      this.authService.toggleIsLoading(false);
-    })
-    console.warn("is auth after login", this.authService.isAuthenticated);
-    // if(this.authService.isAuthenticated){
-    // }
+    ).add(() => {
+      this.loading = false;
+      this.displayCompletionAnimation(this.isAuthenticated);
+    });
+
   }
+
+  displayCompletionAnimation(loginResult:Boolean){
+    if(loginResult) this.animationSrc = "https://assets3.lottiefiles.com/packages/lf20_lk80fpsm.json";
+    else this.animationSrc = "https://assets9.lottiefiles.com/packages/lf20_q9ik4qqj.json";
+    this.loadingLoginResult = true;
+
+    setTimeout(()=> {
+      this.loadingLoginResult = false;
+      this.router.navigate(['/home'])
+              .then(() => {
+                window.location.reload();
+            });
+    }, 1500);
+  }
+
 
 
   hasRoute(route : string) : boolean {
@@ -78,7 +97,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    if(this.authService.isLoading) this.authService.toggleIsLoading(false);
+    // if(this.authService.isLoading) this.authService.toggleIsLoading(false);
   }
 
 }

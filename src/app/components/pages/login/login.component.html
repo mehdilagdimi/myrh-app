@@ -1,7 +1,7 @@
 
 <div class="bg-white w-full relative flex min-h-screen flex-row justify-center overflow-hidden py-6 px-4 sm:py-12">
 
-    <div class="w-[450px] bg-white grid grid-cols-12 grid-rows-6 p-4 border shadow-md">
+    <div class="w-[450px] relative bg-white grid grid-cols-12 grid-rows-6 p-4 border shadow-md">
       <div class="flex flex-col justify-around  col-start-2 col-end-12 row-start-2 row-end-6">
 
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" method="post" name="loginfom" id="formId">
@@ -63,14 +63,32 @@
 
                   </div>
 
-                  <div *ngIf="loading" class="loading-overlay">
-                      <div class="spinning-circle"></div>
-                  </div>
+
 
               </div>
           </form>
 
     </div>
 
+  <div class="w-full flex justify-end p-4 absolute bottom-0">
+    <a class="text-custPurple font-semibold cursor-pointer" routerLink="/signup">Sign up?</a>
+  </div>
+
+
+  <div *ngIf="loading" class="loading-overlay">
+      <div class="spinning-circle"></div>
+  </div>
+
+  <div *ngIf="loadingLoginResult" class="loading-overlay flex justify-center items-center my-auto mx-auto">
+    <div class="h-1/4">
+      <lottie-player  [src]="animationSrc"  background="transparent"  speed="1" loop  autoplay >
+      </lottie-player>
+    </div>
+  </div>
+
 
 </div>
+
+<!-- <div *ngIf="loading" class="loading-overlay">
+  <div class="spinning-circle"></div>
+</div> -->

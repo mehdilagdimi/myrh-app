@@ -77,7 +77,7 @@ export class OfferService {
   updateOfferStatus(offer:IUpdateOffer){
     return this.http
     .post<Response<Offer>>(
-      `${API_URL}/offers/update-status` , offer, {headers : this.headers}
+      `${API_URL}/offers/update-status`, offer, {headers : this.headers}
       );
   }
 

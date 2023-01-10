@@ -1,4 +1,5 @@
 interface IUpdateOffer {
+  id?:Number
   title?: String;
   offerType?: String;
   offerStatus?: String;

@@ -25,7 +25,10 @@ export class OfferComponent implements OnInit {
 
 
   updateStatus(status:number){
+    console.log(" selected offer")
+    console.log(this.offer)
     this.updateOfferTemp = {
+      id: this.offer.id,
       offerStatus : ""
     }
     if(status == 1){
@@ -33,7 +36,18 @@ export class OfferComponent implements OnInit {
     } else if(status == 2){
       this.updateOfferTemp.offerStatus = "DENIED";
     }
-    this.offerService.updateOfferStatus(this.updateOfferTemp);
+
+    console.log(" update off")
+    console.log(this.updateOfferTemp)
+    this.offerService.updateOfferStatus(this.updateOfferTemp).subscribe(
+      {
+        next: (val) => {
+          console.log(" received offer", val.data.data);
+          this.offer = val.data.data;
+        },
+        error : (err) => console.log("err ", err.toString())
+      }
+    );
     this.updateOfferTemp = {};
   }
 }

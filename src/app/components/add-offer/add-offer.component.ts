@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-offer.component.css']
 })
 export class AddOfferComponent implements OnInit {
+  isSuccess!:Boolean;
+  isAddingOfferResult!:Boolean;
+  animationSrc!:string;
   addOfferForm!:FormGroup;
   addedOffer!:Offer;
   offerTypes:String[] = []
@@ -78,17 +81,22 @@ export class AddOfferComponent implements OnInit {
     if(this.selectedImage) this.selectedImage.pending = true;
 
     this.offerService.saveOffer(this.addOfferForm.value).subscribe(
-      response => {
-          if(response.status == 201){
-            this.addedOffer = response.data.data;
+      {
+        next: resp => {
+          console.log("data ", resp );
+          if(resp.status == 201){
+            this.addedOffer = resp.data.data;
             if(this.selectedImage) this.uploadImage();
-            window.location.reload();
-          } else {
-            this.onError()
+            this.isSuccess = true;
           }
+        },
+        error: err => {
+          this.isSuccess = false
+          this.onError()
         }
-      );
-    console.log(this.addOfferForm.value)
+      }).add(() => {
+        this.displayCompletionAnimation();
+      });
   }
 
   uploadImage(){
@@ -122,7 +130,7 @@ export class AddOfferComponent implements OnInit {
       this.selectedImage = new ImageSnippet(event.target.result, file);
       this.selectedImage.pending = true;
 
-      console.log("beofre prome ", this.selectedImage.pending)
+      // console.log("beofre prome ", this.selectedImage.pending)
       new Promise(resolve => setTimeout(resolve, 1000)).then(
         () => this.selectedImage.pending = false
       )
@@ -131,5 +139,19 @@ export class AddOfferComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
+
+  displayCompletionAnimation(){
+    if(this.isSuccess) this.animationSrc = "https://assets3.lottiefiles.com/packages/lf20_lk80fpsm.json";
+    else this.animationSrc = "https://assets9.lottiefiles.com/packages/lf20_q9ik4qqj.json";
+    this.isAddingOfferResult = true;
+
+    setTimeout(()=> {
+      this.isAddingOfferResult = false;
+      this.router.navigate(['/employer'])
+              .then(() => {
+                window.location.reload();
+            });
+    }, 1500);
+  }
 
 }

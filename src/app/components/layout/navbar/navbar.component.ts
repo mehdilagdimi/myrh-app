@@ -44,7 +44,7 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/login'])
     .then(() => {
       window.location.reload();
-});
+    });
   }
 
 

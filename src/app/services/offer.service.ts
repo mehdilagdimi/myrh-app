@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Offer } from '../interfaces/offer';
@@ -9,29 +9,59 @@ import { ICity } from '../interfaces/ICity';
 import { ResponseMultipleData } from '../interfaces/responseMultiple';
 import { IUpdateOffer } from '../interfaces/updateOffer';
 import { API_URL } from 'src/config/api.constants';
+import { FilterOperation } from '../interfaces/filterOperation';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OfferService {
   private headers!:HttpHeaders;
+  searchValuesBSubject:BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  filterCriteriaObj!:FilterOperation[];
 
   employer_id:Number = 2;
-
 
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json'
     })
+
+    this.getSearchValsObser().subscribe(val => {
+      this.filterCriteriaObj = val
+    })
   }
 
-  getOffers() : Observable<Response<Offer[]>>{
+  getOffers(filters:FilterOperation[]) : Observable<Response<Offer[]>>{
+    if(filters != null){
+      let filter_url = `${API_URL}/offers?`;
+      console.log(" url " + filter_url)
+      filters.forEach((filter, key, arr) => {
+        filter_url += filter.value != null ? `${filter.key}=${filter.value}` : "";
+        if (!Object.is(arr.length - 1, key) && filter.value != null && filter.value != "") {
+          // execute last item logic
+          filter_url += "&";
+        }
+      })
+
+      if(filter_url.endsWith("&")) filter_url = filter_url.slice(0, -1);
+
+     console.log(" url " + filter_url)
+      return this.http
+      .get<Response<Offer[]>>(
+        filter_url,
+        {headers : this.headers}
+        );
+
+    }
+    console.log(" no filter ")
     return this.http
     .get<Response<Offer[]>>(
-      `${API_URL}/offers` ,{headers : this.headers}
+      `${API_URL}/offers`,{headers : this.headers}
       );
     }
+
+
   getWaitingOffers() : Observable<Response<Offer[]>>{
     return this.http
     .get<Response<Offer[]>>(
@@ -81,5 +111,12 @@ export class OfferService {
       );
   }
 
+
+  forwardSeachValues(newValue:any){
+    this.searchValuesBSubject.next(newValue);
+  }
+  getSearchValsObser(){
+    return this.searchValuesBSubject.asObservable();
+  }
 }
 

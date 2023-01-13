@@ -4,6 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Offer } from 'src/app/interfaces/offer';
 import { Response } from '../../interfaces/response';
 import { PaginationInstance } from 'ngx-pagination';
+import { FilterOperation } from 'src/app/interfaces/filterOperation';
 
 @Component({
   selector: 'app-offers',
@@ -16,8 +17,17 @@ export class OffersComponent implements OnInit {
   response!:Response<Offer[]>;
   offers!: Offer[];
   isLoading!:boolean;
+  filters!:FilterOperation[];
 
-  constructor(private offerService: OfferService) { }
+  constructor(private offerService: OfferService) {
+      this.offerService.getSearchValsObser().subscribe(
+        val => {
+          console.log(" filter inside offers compo constr" , val)
+          this.filters = val;
+          this.fetchOffers();
+        }
+      )
+  }
 
 
   public filter: string = '';
@@ -43,10 +53,17 @@ export class OffersComponent implements OnInit {
 
 
   ngOnInit(): void {
+    // fetch offers on init
+    this.fetchOffers();
+  }
+
+
+  fetchOffers(){
+    console.log("offers compo fetch method" , this.filters)
     this.isLoading = true;
     if(!this.getForEmp){
       this.offerService
-      .getOffers()
+      .getOffers(this.filters)
       .subscribe( response => {
         this.response = response
         this.offers = this.response?.data.data;
@@ -87,5 +104,7 @@ export class OffersComponent implements OnInit {
   private logEvent(message: string) {
       this.eventLog.unshift(`${new Date().toISOString()}: ${message}`)
   }
+
+
 
 }

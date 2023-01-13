@@ -83,6 +83,7 @@ export class LoginComponent implements OnInit {
 
     setTimeout(()=> {
       this.loadingLoginResult = false;
+      if(!this.isAuthenticated) return;
       this.router.navigate(['/home'])
               .then(() => {
                 window.location.reload();

@@ -1,18 +1,19 @@
-<form (ngSubmit)="onSubmit()" method="post" name="loginfom" id="formId">
+<form [formGroup]="filterForm" (ngSubmit)="applySearchFilter()" method="post" name="loginfom" id="formId">
 <div class="grid grid-cols-7 gap-2">
   <div class="col-span-6 flex justify-around">
     <div class="flex-grow bg-white  m-0">
-        <input class="h-full w-full border px-3 py-3 outline-none" placeholder="Search by keyword" />
+        <input formControlName="text" name="email" class="h-full w-full border px-3 py-3 outline-none" placeholder="Search by keyword" />
     </div>
     <div class="flex-none bg-white m-0">
-         <select id="city"  name="city" class="border h-full w-full px-3  outline-none">
-          <option [ngValue]="undefined" [disabled]="true">City</option>
+         <select formControlName="city" id="city"  name="city" class="border h-full w-full px-3  outline-none">
+          <!-- <option [ngValue]="" [disabled]="true">City</option> -->
+          <option [ngValue]="null" disabled>City</option>
           <option *ngFor="let city of cities" [ngValue]="city.asciiname">{{ city.asciiname }}</option>
         </select>
     </div>
     <div class="flex-none bg-white m-0">
-      <select id="contract"  name="contract" class="border h-full w-full px-3  outline-none">
-        <option [ngValue]="undefined" [disabled]="true">Contract</option>
+      <select formControlName="contract" id="contract"  name="contract" class="border h-full w-full px-3  outline-none">
+        <option [ngValue]="null" disabled>Contract</option>
         <option  *ngFor="let contract of contracts" [ngValue]="contract">{{ contract }}</option>
       </select>
     </div>

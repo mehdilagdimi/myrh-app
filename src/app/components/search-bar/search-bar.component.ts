@@ -1,6 +1,7 @@
 import { OfferService } from './../../services/offer.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FilterOperation } from 'src/app/interfaces/filterOperation';
 
 @Component({
   selector: 'app-search-bar',
@@ -10,7 +11,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class SearchBarComponent implements OnInit {
   cities!:any[]
   contracts!:String[]
-  searchForm!:FormGroup;
+  filterForm!:FormGroup;
+  filterCriteriaObj!:FilterOperation[];
 
   constructor(private offerService:OfferService) {
     this.offerService.getCitites().subscribe(
@@ -22,23 +24,47 @@ export class SearchBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.searchForm = new FormGroup({
-    //   city: new FormControl('thisemail', [
-    //     // Validators.required,
-
-    //   ]
-    // ),
-    // contract: new FormControl('this.password',[
-    //   // Validators.required,
-    //   // Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
-    // ],)
-
-    // });
+    this.filterForm = new FormGroup({
+      text: new FormControl(null, [
+        // Validators.required,
+      ]),
+      contract: new FormControl(null,[
+      // Validators.required,
+      ],),
+      city: new FormControl(null,[
+      // Validators.required,
+      ],)
+    });
 
   }
 
-  onSubmit(){
+  applySearchFilter(){
     //submit search
+    console.log(" form" , this.filterForm.value)
+    this.filterCriteriaObj = [
+      {
+        key:"text",
+        value: this.text?.value,
+        operation: ":"
+      },
+      {
+        key:"city",
+        value: this.city?.value,
+        operation: ":"
+      },
+      {
+        key:"contract",
+        value: this.contract?.value,
+        operation: ":"
+      },
+    ]
+    this.offerService.forwardSeachValues(this.filterCriteriaObj);
   }
+
+
+
+  get text()  { return this.filterForm.get('text'); }
+  get city() { return this.filterForm.get('city'); }
+  get contract() { return this.filterForm.get('contract'); }
 
 }

@@ -1,3 +1,4 @@
+import { JwtHandlerService } from './jwt-handler.service';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -19,10 +20,11 @@ export class OfferService {
   searchValuesBSubject:BehaviorSubject<any> = new BehaviorSubject<any>(null);
   filterCriteriaObj!:FilterOperation[];
 
-  employer_id:Number = 2;
+  // employer_id:Number = 2;
+  employer_id!:String;
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private jwtHandlerService:JwtHandlerService) {
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json'
     })
@@ -71,6 +73,7 @@ export class OfferService {
 
 
   getEmployerOffers() : Observable<Response<Offer[]>>{
+    this.employer_id = this.jwtHandlerService.getUserId()!;
     return this.http
     .get<Response<Offer[]>>(
             `${API_URL}/offers?employer=${this.employer_id}`, {headers : this.headers}

@@ -1,3 +1,4 @@
+import { JwtHandlerService } from './../../services/jwt-handler.service';
 import { AuthService } from './../../services/auth.service';
 import { OfferService } from './../../services/offer.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -12,21 +13,27 @@ import { FilterOperation } from 'src/app/interfaces/filterOperation';
   styleUrls: ['./offers.component.css']
 })
 export class OffersComponent implements OnInit {
-  @Input("getForEmployer") getForEmp!:Boolean;
-  @Input("getForAgent") getForAgn!:Boolean;
+  getForEmp!:Boolean;
+  getForAgn!:Boolean;
   response!:Response<Offer[]>;
   offers!: Offer[];
   isLoading!:boolean;
   filters!:FilterOperation[];
+  userRole!:String;
 
-  constructor(private offerService: OfferService) {
-      this.offerService.getSearchValsObser().subscribe(
-        val => {
-          console.log(" filter inside offers compo constr" , val)
-          this.filters = val;
-          this.fetchOffers();
-        }
-      )
+  constructor(private offerService: OfferService, private jwtService:JwtHandlerService) {
+    this.userRole = this.jwtService.getRole()!;
+
+    this.getForEmp = this.jwtService.getRole()! == "ROLE_EMPLOYER" ? true : false;
+    this.getForAgn = this.jwtService.getRole()! == "ROLE_AGENT" ? true : false;
+
+    this.offerService.getSearchValsObser().subscribe(
+      val => {
+        console.log(" filter inside offers compo constr" , val)
+        this.filters = val;
+        this.fetchOffers();
+      }
+    )
   }
 
 
@@ -61,7 +68,7 @@ export class OffersComponent implements OnInit {
   fetchOffers(){
     console.log("offers compo fetch method" , this.filters)
     this.isLoading = true;
-    if(!this.getForEmp){
+    if(this.userRole !== "ROLE_EMPLOYER"){
       this.offerService
       .getOffers(this.filters)
       .subscribe( response => {

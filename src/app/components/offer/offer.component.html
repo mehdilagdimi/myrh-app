@@ -34,7 +34,7 @@
           <label class="font-semibold">Description : </label>
           {{offer.offerDetails.description}}
         </div>
-        <div *ngIf="userRole === 'ROLE_AGENT' && offer.offerStatus === 'WAITING' " class="flex justify-end">
+        <div *ngIf="userRole === 'ROLE_AGENT' && offer.offerStatus === 'WAITING' " class="flex flex-wrap justify-center sm:justify-end">
           <button (click)="updateStatus(1)" class="mx-2 px-4 py-2 bg-gray-50 text-green-500 hover:bg-white  hover:shadow-sm hover:rounded-sm hover:border hover:border-custPurple">Accept</button>
           <button (click)="updateStatus(2)" class="mx-2 px-4 py-2 bg-gray-50 text-red-500 hover:bg-white hover:shadow-sm hover:rounded-sm hover:border  hover:border-custPurple">Decline</button>
         </div>

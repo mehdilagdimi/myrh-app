@@ -4,14 +4,14 @@
     <div class=" bg-white my-2 sm:m-0">
         <input formControlName="text" name="email" class="h-full w-full border px-3 py-3 outline-none" placeholder="Search by keyword" />
     </div>
-    <div class=" bg-white my-2 sm:m-0">
+    <div class=" bg-white mx-3 my-2 sm:m-0">
          <select formControlName="city" id="city"  name="city" class="border h-full w-full px-3  outline-none">
           <!-- <option [ngValue]="" [disabled]="true">City</option> -->
           <option [ngValue]="null" disabled>City</option>
           <option *ngFor="let city of cities" [ngValue]="city.asciiname">{{ city.asciiname }}</option>
         </select>
     </div>
-    <div class=" bg-white my-2 sm:m-0">
+    <div class=" bg-white mx-3 my-2 sm:m-0">
       <select formControlName="contract" id="contract"  name="contract" class="border h-full w-full px-3  outline-none">
         <option [ngValue]="null" disabled>Contract</option>
         <option  *ngFor="let contract of contracts" [ngValue]="contract">{{ contract }}</option>

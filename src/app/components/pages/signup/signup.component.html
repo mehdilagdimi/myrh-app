@@ -20,7 +20,7 @@
                         <!-- <div class="col-span-2 bg-red-200 "></div> -->
                         <label for="address">Username</label>
                         <div class="border-l-4 border-custPurple rounded-sm">
-                            <input formControlName="username" class="w-full bg-white border shadow-sm border-gray-100 outline-none py-3 px-2" type="text" name="username"
+                            <input formControlName="username" class="w-full bg-gray-50 border shadow-sm border-gray-100 outline-none py-3 px-2" type="text" name="username"
                                    placeholder="Username" required>
                         </div>
                         <div *ngIf="username?.invalid && (username?.dirty || username?.touched)"
@@ -36,7 +36,9 @@
                         <!-- <div class="col-span-2 bg-red-200 "></div> -->
                         <label for="address">Email</label>
                         <div class="border-l-4 border-custPurple rounded-sm">
-                            <input formControlName="email" class="w-full shadow-sm border border-gray-100 {{email?.valid && (email?.dirty || email?.touched) ? 'bg-green-50' : 'bg-white'}} outline-none py-3 px-2" type="email" name="email"
+                            <!-- <input formControlName="email" class="w-full shadow-sm border border-gray-100 {{email?.valid && (email?.dirty || email?.touched) ? 'bg-green-50' : 'bg-white'}} outline-none bg-gray-50 py-3 px-2" type="email" name="email"
+                                   placeholder="Email" required> -->
+                            <input formControlName="email" class="w-full shadow-sm border border-gray-100  outline-none bg-gray-50 py-3 px-2" type="email" name="email"
                                    placeholder="Email" required>
                         </div>
                         <div *ngIf="email?.invalid && (email?.dirty || email?.touched)"
@@ -54,7 +56,7 @@
                         <!-- <div class="col-span-2 bg-red-200 "></div> -->
                         <label for="address">Password</label>
                         <div class="border-l-4 border-custPurple rounded-sm">
-                            <input formControlName="password" class="w-full shadow-sm bg-white border border-gray-100 outline-none py-3 px-2" type="password" name="password"
+                            <input formControlName="password" class="w-full shadow-sm bg-gray-50 border border-gray-100 outline-none py-3 px-2" type="password" name="password"
                                    placeholder="Password" required>
                         </div>
                         <div *ngIf="password?.invalid && (password?.dirty || password?.touched)"
@@ -73,7 +75,7 @@
                         <!-- <div class="col-span-2 bg-red-200 "></div> -->
                         <label for="address">Repeat Password</label>
                         <div class="border-l-4 border-custPurple rounded-sm">
-                            <input formControlName="repeatpassword" class="w-full shadow-sm bg-white border border-gray-100 outline-none py-3 px-2" type="password" name="repeatpassword"
+                            <input formControlName="repeatpassword" class="w-full shadow-sm bg-gray-50 border border-gray-100 outline-none  py-3 px-2" type="password" name="repeatpassword"
                                    placeholder="Repeat Password" required>
                         </div>
                         <div *ngIf="repeatpassword?.invalid && (repeatpassword?.dirty || repeatpassword?.touched)"
@@ -92,7 +94,7 @@
                       <!-- <div class="col-span-2 bg-red-200 "></div> -->
                       <label for="address">Address</label>
                       <div class="border-l-4 border-custPurple rounded-sm">
-                          <input formControlName="address" class="w-full bg-white shadow-sm border border-gray-100 outline-none py-3 px-2" type="text" name="address"
+                          <input formControlName="address" class="w-full shadow-sm border border-gray-100 outline-none bg-gray-50 py-3 px-2" type="text" name="address"
                                  placeholder="Address" required>
                       </div>
                       <div *ngIf="address?.invalid && (address?.dirty || address?.touched)"
@@ -108,7 +110,7 @@
                     <!-- <div class="col-span-2 bg-red-200 "></div> -->
                     <label for="address">Phone</label>
                     <div class="border-l-4 border-custPurple rounded-sm">
-                        <input formControlName="tele" class="w-full bg-white border shadow-sm border-gray-100 outline-none py-3 px-2" type="text" name="tele"
+                        <input formControlName="tele" class="w-full  border shadow-sm border-gray-100 outline-none bg-gray-50 py-3 px-2" type="text" name="tele"
                                placeholder="Phone" required>
                     </div>
                     <div *ngIf="tele?.invalid && (tele?.dirty || tele?.touched)"
@@ -123,9 +125,9 @@
 
                   <div class="m-5 text-center rounded-sm">
                     <!-- <div class="col-span-2 bg-red-200 "></div> -->
-                    <label for="role">Signup As</label>
-                    <select id="role" formControlName="role" name="role" class="border shadow-sm h-full w-full px-3  outline-none">
-                      <!-- <option  [disabled]="true" [selected]="true">Role</option> -->
+                    <!-- <label for="role">Signup As</label> -->
+                    <select id="role" formControlName="role" name="role" class="border shadow-sm h-full w-full py-2  px-3  outline-none">
+                      <option  [ngValue]="null" disabled selected>Signup As</option>
                       <option *ngFor="let role of roles" [ngValue]="'ROLE_'+role">{{ role }}</option>
                   </select>
                     <div *ngIf="role?.invalid && (role?.dirty || role?.touched)"

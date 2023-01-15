@@ -1,28 +1,28 @@
 <div class="w-full h-full mb-3 mt-6 hover:scale-[1.03] duration-1000 ease-in-out hover:-z-40">
-  <div class="flex flex-row justify-between ">
+  <div class="flex flex-col sm:flex-row justify-between ">
 
       <!-- image  -->
-      <div class="rounded-tl-sm rounded-bl-sm">
-          <img class="h-96 object-cover md:h-auto md:w-48" src="assets/offer.jpg" />
+      <div class="flex justify-center rounded-tl-sm rounded-bl-sm">
+          <img class="w-full object-cover sm:h-auto sm:w-48" src="assets/offer.jpg" />
       </div>
 
       <!-- Content : title & some details like date, city... -->
-      <div class="w-full flex flex-row justify-around shadow-sm rounded-sm border bg-white">
-        <div class="w-full flex flex-col justify-center ">
-            <p class="pb-2 mx-6 font-thin text-md">{{offer.employer.username}}</p>
-            <p class="ml-6 font-bold text-lg">{{offer.title}}</p>
-            <div class="py-2 block mx-2">
+      <div class="w-full h-[300px] sm:h-auto flex flex-col sm:flex-row justify-around sm:justify-center shadow-sm rounded-sm border bg-white">
+        <div class="w-full h-full py:4 sm:py-0 flex flex-col justify-center ">
+            <p class="pb-2 mx-6 text-center sm:text-left font-thin text-md">{{offer.employer.username}}</p>
+            <p class="sm:ml-6 font-bold text-center sm:text-left text-lg">{{offer.title}}</p>
+            <div class="py-2 flex flex-col justify-center sm:block mx-2 text-center sm:text-left">
                 <p class="inline mx-4 font-thin text-md">{{offer.offreType}}</p>
                 <p class="inline mx-4 font-thin text-md">{{offer.ville}}</p>
                 <p class="inline mx-4 font-thin text-md">{{offer.publicationDate | date:'dd/MM/yyyy h:mma' }}</p>
                 <p *ngIf="showDetails" class="inline mx-4 font-semibold text-md"> Status : {{offer.offerStatus}}</p>
                 <p class="inline mx-4 font-thin text-md"> {{offer.isExpired ? 'Expired Offer' : 'Actively Recruiting' }}</p>
             </div>
-          </div>
-          <div class="my-auto mx-auto px-6 cursor-pointer animate-bounce" (click)="showDetails = !showDetails">
+        </div>
+        <div class="mb-6 sm:my-auto mx-auto px-6 cursor-pointer animate-bounce" (click)="showDetails = !showDetails">
             <!-- <svg class="h-6 text-sm font-thin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg> -->
             <svg class="h-4 text-sm font-thin text-custPurple" fill xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor"  d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
-          </div>
+        </div>
       </div>
 
     </div>

@@ -1,9 +1,9 @@
 
 <div class="flex justify-between bg-gray-100">
-  <div class="w-40 min-h-screen bg-gray-50">
+  <div class="w-20 sm:w-40 min-h-screen bg-gray-50">
     <employer-side-bar></employer-side-bar>
   </div>
-  <div class="w-8/12 mx-auto">
+  <div class="w-full sm:w-8/12 mx-auto">
     <div class="flex justify-end my-4">
       <button (click)="isNewOfferPopup = true" class="px-6 py-3 bg-gray-300 font-semibold rounded-sm shadow-sm hover:bg-custPurple hover:text-white" type="button">
         NEW
@@ -15,8 +15,8 @@
 
 
 
- <div class="overlay w-full z-[999]" *ngIf="isNewOfferPopup">
-     <div class="popup mx-auto mt-[100px]">
+ <div class="overlay w-full px-3 z-[999]" *ngIf="isNewOfferPopup">
+     <div class="popup w-full px-4 sm:w-3/4 md:w-1/2 sm:mx-auto mt-[100px]">
          <a class="close mb-3 z-[999]" (click)="isNewOfferPopup = false">&times;</a>
          <div class="content mt-8 h-[740px] overflow-y-scroll">
             <app-add-offer></app-add-offer>

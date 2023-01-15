@@ -1,7 +1,7 @@
 <ng-container *ngIf="!hasRoute('/login') && !hasRoute('/signup')">
 
-  <div class="z-[999] fixed h-20 top-0 w-full left-0 grid grid-cols-8 bg-white shadow-md">
-    <div class="col-start-2 col-end-3 p-2 my-auto mx-auto">
+  <div class="z-[999] fixed h-20 top-0 w-full left-0 grid grid-cols-4 md:grid-cols-8 bg-white shadow-md">
+    <div class="col-start-1  col-end-4 md:col-start-2 md:col-end-3 p-2 my-auto mx-auto">
       <img class="h-10 cursor-pointer" src="assets/logo.png" alt="logomyRH" (click)="navigateToHome()">
     </div>
     <div class="col-start-7 col-end-8 my-auto mx-auto">

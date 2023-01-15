@@ -3,7 +3,7 @@
   <div class="w-full">
     <app-offer [isShowDetails]="getForEmp || getForAgn" [offer]="offer"  *ngFor="let offer of offers | paginate: config"></app-offer>
   </div>
-  <div *ngIf="!isLoading" class="mx-auto  my-8">
+  <div *ngIf="!isLoading" class="text-center w-full mx-0 sm:mx-auto my-8">
     <pagination-controls  [id]="config.id!"
                              [maxSize]="maxSize"
                              [directionLinks]="directionLinks"

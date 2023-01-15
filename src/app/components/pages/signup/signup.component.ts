@@ -22,30 +22,30 @@ export class SignupComponent implements OnInit {
 
   constructor(private authService: AuthService, private router:Router) {
     this.signupForm = new FormGroup({
-      username : new FormControl('',[
+      username : new FormControl(null,[
         Validators.required,
         ],
       ),
-      email: new FormControl('', [
+      email: new FormControl(null, [
         Validators.required,
         Validators.email
       ]
       ),
-      password: new FormControl('',[
+      password: new FormControl(null,[
         Validators.required,
         // Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
         ],),
-      repeatpassword: new FormControl('',[
+      repeatpassword: new FormControl(null,[
         Validators.required,
         // Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")
         ],),
-      address: new FormControl('',[
+      address: new FormControl(null,[
         Validators.required
         ],),
-      tele: new FormControl('',[
+      tele: new FormControl(null,[
         Validators.required
         ],),
-      role: new FormControl("EMPLOYER",[
+      role: new FormControl(null,[
         Validators.required,
         Validators.pattern("^(?!ROLE_AGENT).*$")
         ],),

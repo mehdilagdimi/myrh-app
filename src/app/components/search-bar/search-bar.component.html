@@ -1,5 +1,8 @@
 <form [formGroup]="filterForm" (ngSubmit)="applySearchFilter()" method="post" name="loginfom" id="formId" class="w-full h-full">
-<div class="flex justify-center flex-wrap  md:grid gap-1 sm:grid-cols-3 md:grid-cols-7 sm:gap-2">
+<div class="flex justify-center flex-wrap  md:grid gap-1 sm:grid-cols-3 md:grid-cols-8 sm:gap-2">
+  <div *ngIf="text?.dirty || contract?.dirty " class="bg-white rounded-sm mt-4 sm:mt-0">
+    <button (click)="clearFilter()" type="button" class="w-full h-full px-16 sm:px-3 py-3 text-black shadow-sm text-center font-semibold">Clear</button>
+  </div>
   <div class="col-span-6 flex flex-wrap sm:flex-nowrap justify-center">
     <div class=" bg-white my-2 sm:m-0">
         <input formControlName="text" name="email" class="h-full w-full border px-3 py-3 outline-none" placeholder="Search by keyword" />
@@ -19,7 +22,7 @@
     </div>
   </div>
   <div class="bg-custPurple rounded-sm mt-4 sm:mt-0">
-    <button class="w-full h-full px-16 sm:px-3 py-4 text-white shadow-sm text-center font-semibold">Search</button>
+    <button type="submit" class="w-full h-full px-16 sm:px-3 py-4 text-white shadow-sm text-center font-semibold">Search</button>
   </div>
 </div>
 </form>

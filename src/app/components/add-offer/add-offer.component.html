@@ -82,9 +82,9 @@
                   name="offerType"
                   class="border h-full w-full px-3  outline-none"
                 >
-                  <!-- <option [ngValue]="undefined" [disabled]="true" selected>
+                  <option [ngValue]="null" [disabled]="true">
                     Contract
-                  </option> -->
+                  </option>
                   <option
                     *ngFor="let offerType of offerTypes"
                     [ngValue]="offerType"
@@ -113,7 +113,7 @@
                   name="profile"
                   class="border h-full w-full px-3  outline-none"
                 >
-                  <option [ngValue]="undefined" [disabled]="true">
+                  <option [ngValue]="null" [disabled]="true">
                     Sector
                   </option>
                   <option *ngFor="let profile of profiles" [ngValue]="profile">
@@ -136,7 +136,7 @@
                 <!-- <div class="col-span-2 bg-red-200 "></div> -->
                 <label for="city">City</label>
                 <!-- <div class="border-l-4 border-custPurple rounded-sm">
-                          <input formControlName="ville" class="w-full bg-white border border-gray-100 outline-none py-3 px-2" type="text" name="ville"
+                          <input formControlName="ville"  class="w-full bg-white border border-gray-100 outline-none py-3 px-2" type="text" name="ville"
                                  placeholder="City" required>
                       </div> -->
                 <select
@@ -145,7 +145,7 @@
                   name="ville"
                   class="border h-full w-full px-3  outline-none"
                 >
-                  <option [ngValue]="undefined" [disabled]="true">City</option>
+                  <option [ngValue]="null" [disabled]="true">City</option>
                   <option
                     *ngFor="let city of cities"
                     [ngValue]="city.asciiname"
@@ -173,7 +173,7 @@
                   name="education"
                   class="border h-full w-full px-3  outline-none"
                 >
-                  <option [ngValue]="undefined" [disabled]="true">
+                  <option [ngValue]="null" [disabled]="true">
                     Education
                   </option>
                   <option

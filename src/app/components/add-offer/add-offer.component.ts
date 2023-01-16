@@ -40,27 +40,27 @@ export class AddOfferComponent implements OnInit {
       );
 
     this.addOfferForm = new FormGroup({
-      title : new FormControl('',[
+      title : new FormControl(null,[
         Validators.required,
         ],
       ),
-      description: new FormControl('', [
+      description: new FormControl(null, [
         Validators.required
       ]
       ),
-      offerType: new FormControl("CDI",[
+      offerType: new FormControl(null,[
         Validators.required,
         ],),
-      profile: new FormControl([
+      profile: new FormControl(null,[
         Validators.required,
         ],),
-      ville: new FormControl([
+      ville: new FormControl(null,[
         Validators.required
         ],),
-      education: new FormControl('',[
+      education: new FormControl(null,[
         Validators.required
         ],),
-      salary: new FormControl('',[
+      salary: new FormControl(null,[
         Validators.required
         ],),
     })

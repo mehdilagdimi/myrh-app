@@ -5,6 +5,9 @@
       <div class="flex flex-col justify-around  col-start-2 col-end-12 row-start-2 row-end-6">
 
           <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" method="post" name="loginfom" id="formId">
+            <div class="w-full p-4 absolute left-0 top-0">
+              <a class="text-black text-sm font-thin cursor-pointer" routerLink="/">Home?</a>
+            </div>
               <div>
                   <img class="h-12 mx-auto mb-2" src="assets/logo.png" alt="logo">
                   <div class="m-5 text-center rounded-sm">

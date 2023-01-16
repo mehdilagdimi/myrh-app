@@ -40,7 +40,7 @@ export class SearchBarComponent implements OnInit {
 
   applySearchFilter(){
     //submit search
-    console.log(" form" , this.filterForm.value)
+    // console.log(" form" , this.filterForm.value)
     this.filterCriteriaObj = [
       {
         key:"text",
@@ -61,6 +61,10 @@ export class SearchBarComponent implements OnInit {
     this.offerService.forwardSeachValues(this.filterCriteriaObj);
   }
 
+  clearFilter(){
+    this.filterForm.reset();
+    this.applySearchFilter();
+  }
 
 
   get text()  { return this.filterForm.get('text'); }

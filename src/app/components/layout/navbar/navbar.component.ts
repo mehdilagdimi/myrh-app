@@ -35,7 +35,14 @@ export class NavbarComponent implements OnInit {
   }
 
   navigateToHome(){
+    // this.router.routeReuseStrategy.shouldReuseRoute = function () {
+    //   return false;
+    // }
+    // this.router.onSameUrlNavigation = 'reload';
     this.router.navigateByUrl("/home")
+      .then(() => {
+        window.location.reload();
+      });
   }
 
   logout() {

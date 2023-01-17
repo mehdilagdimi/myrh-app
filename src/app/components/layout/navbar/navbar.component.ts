@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
     // console.log(" router " + route)
     return this.router.url === route;
   }
-
+  
   navigateToHome(){
     // this.router.routeReuseStrategy.shouldReuseRoute = function () {
     //   return false;

@@ -1,9 +1,12 @@
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 import { SignupRequest } from 'src/app/interfaces/signupRequest';
 import { Router } from '@angular/router';
+import { passwordMatchingValidatior } from 'src/app/shared/validators/passwordConfirm.validator';
+
+
 
 @Component({
   selector: 'app-signup',
@@ -49,14 +52,14 @@ export class SignupComponent implements OnInit {
         Validators.required,
         Validators.pattern("^(?!ROLE_AGENT).*$")
         ],),
-    })
-    // this.signupForm.setValue({role : this.roles[0]})
+    }, passwordMatchingValidatior)
 
    }
 
-  ngOnInit(): void {
 
+  ngOnInit(): void {
   }
+
 
 
   get username (){ return this.signupForm.get('username')};

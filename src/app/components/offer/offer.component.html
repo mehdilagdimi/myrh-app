@@ -1,4 +1,4 @@
-<div class="w-full h-full mb-3 mt-6 hover:scale-[1.03] duration-1000 ease-in-out hover:-z-40">
+<div class="w-full h-full mb-3 mt-6 hover:scale-[1.03] duration-500 ease-in-out hover:-z-40">
   <div class="flex flex-col sm:flex-row justify-between ">
 
       <!-- image  -->
@@ -12,11 +12,34 @@
             <p class="pb-2 mx-6 text-center sm:text-left font-thin text-md">{{offer.employer.username}}</p>
             <p class="sm:ml-6 font-bold text-center sm:text-left text-lg">{{offer.title}}</p>
             <div class="py-2 flex flex-col justify-center sm:block mx-2 text-center sm:text-left">
-                <p class="inline mx-4 font-thin text-md">{{offer.offreType}}</p>
-                <p class="inline mx-4 font-thin text-md">{{offer.ville}}</p>
-                <p class="inline mx-4 font-thin text-md">{{offer.publicationDate | date:'dd/MM/yyyy h:mma' }}</p>
+              <p class="inline mx-4 font-thin text-md">
+                <span class="input-group-text">
+                  <i class="fa-sharp fa-solid fa-file-contract"></i>
+                </span>
+                  {{offer.offreType}}
+                </p>
+                <p class="inline mx-4 font-thin text-md">
+                  <span class="input-group-text">
+                    <i class="fa-sharp fa-solid fa-location-dot"></i>
+                  </span>
+                  {{offer.ville}}
+                </p>
+                <p class="inline mx-4 font-thin text-md">
+                  <span class="input-group-text">
+                    <i class="fa-sharp fa-solid fa-calendar"></i>
+                  </span>
+                  {{offer.publicationDate | date:'dd/MM/yyyy h:mma' }}
+                </p>
                 <p *ngIf="showDetails" class="inline mx-4 font-semibold text-md"> Status : {{offer.offerStatus}}</p>
-                <p class="inline mx-4 font-thin text-md"> {{offer.isExpired ? 'Expired Offer' : 'Actively Recruiting' }}</p>
+                <p class="inline mx-4 font-thin text-md">
+                  <span *ngIf="!offer.isExpired" class="input-group-text">
+                    <i class="fa-sharp fa-solid fa-clock"></i>
+                  </span>
+                  <span *ngIf="offer.isExpired" class="input-group-text">
+                    <i class="fa-sharp fa-solid fa-ban"></i>
+                  </span>
+                  {{offer.isExpired ? 'Expired Offer' : 'Actively Recruiting' }}
+                </p>
             </div>
         </div>
         <div class="mb-6 sm:my-auto mx-auto px-6 cursor-pointer animate-bounce" (click)="showDetails = !showDetails">

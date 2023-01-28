@@ -6,6 +6,7 @@ import { EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Validators } from '@angular/forms';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
 
 @Component({
@@ -21,12 +22,22 @@ export class LoginComponent implements OnInit {
   isAuthenticated:Boolean = false;
   animationSrc!:string;
 
-  constructor(private router:Router, private authService: AuthService, private localStorageService:LocalStorageService) {
+  user!: SocialUser;
+  loggedIn!: boolean;
+
+  constructor(private router:Router, private authService: AuthService, private localStorageService:LocalStorageService,
+        private socialAuthService: SocialAuthService) {
     // this.loading = this.authService.isLoading;
     this.isAuthenticated = this.authService.isAuthenticated;
   }
 
   ngOnInit(): void {
+    this.socialAuthService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+      console.log(this.user)
+    });
+
     this.loginForm = new FormGroup({
       email: new FormControl('', [
           Validators.required,
@@ -92,10 +103,19 @@ export class LoginComponent implements OnInit {
   }
 
 
+  signInWithGoogle(): void {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  signInWithFB(): void {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
 
   hasRoute(route : string) : boolean {
     return this.router.url === route;
   }
+
 
   ngOnDestroy() {
     // if(this.authService.isLoading) this.authService.toggleIsLoading(false);

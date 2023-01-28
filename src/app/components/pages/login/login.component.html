@@ -57,7 +57,31 @@
                           <h4 class="text-sm font-light italic text-red-500">Invalid credentials, try again</h4>
                   </div> -->
 
-                  <div class="w-full flex justify-center">
+                    <!-- OAUTH SOCIAL  -->
+                    <hr class="my-8">
+
+                    <div class="flex flex-col items-center my-6">
+                      <div class="w-full flex justify-center items-center">
+                        <p class="text-sm font-thin mx-2">Continue with </p>
+                       <asl-google-signin-button  size="large"  shape="rectangular" type="icon"></asl-google-signin-button>
+                     </div>
+                     <p class="text-sm font-extralight">or</p>
+                     <div class="">
+                      <button
+                      type="button"
+                      class="px-4 flex items-center"
+                      (click)="signInWithFB()"
+                      >
+                        <p class="text-sm font-thin mx-2">Continue with </p>
+                        <div class="border px-2 py-1  rounded-md">
+                          <span class=" fab fa-facebook text-2xl text-blue-700"></span>
+                        </div>
+                      </button>
+                     </div>
+                    </div>
+
+
+                  <div class="w-full flex justify-center pt-6">
                     <button type="submit" [disabled]="!loginForm.valid" id="submitBtnId"
                             class='w-full mx-4 inline-block {{!loginForm.valid ? "bg-gray-400" : "bg-custPurple"}}  shadow-sm rounded-sm py-3 text-white font-regular'
                     >
@@ -95,3 +119,6 @@
 <!-- <div *ngIf="loading" class="loading-overlay">
   <div class="spinning-circle"></div>
 </div> -->
+
+<!-- <button (click)="">Sign in with google</button> -->
+<!-- <asl-google-signin-button type="standard" #gbtn *ngIf="!user"></asl-google-signin-button> -->

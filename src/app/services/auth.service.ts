@@ -56,15 +56,20 @@ export class AuthService {
             );
   }
 
-  login(loginCredentials : LoginRequest) {
+  login(loginCredentials : LoginRequest, isOauth:Boolean) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     })
+    // const isOauth = loginCredentials.idToken ? true : false;
+    var url = `${API_URL}/auth?` + (isOauth ? `oauth=${isOauth}&provider=${loginCredentials.provider}` : "");
+    console.log(" auth eq ", `${API_URL}/auth?oauth=${isOauth}`);
+
     return this.http
             .post<Response<String>>(
-              `${API_URL}/auth`, loginCredentials, {headers}
+              url, loginCredentials, {headers}
             );
   }
+
 
   setAuthState(authState:boolean){
     this.authStateSubject.next(authState);

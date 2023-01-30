@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Validators } from '@angular/forms';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { LoginRequest } from 'src/app/interfaces/loginRequest';
 
 
 @Component({
@@ -23,19 +24,27 @@ export class LoginComponent implements OnInit {
   animationSrc!:string;
 
   user!: SocialUser;
-  loggedIn!: boolean;
+  selectedRole:string = "VISITOR";
+  proccedToLoginPage: boolean = false;
+
 
   constructor(private router:Router, private authService: AuthService, private localStorageService:LocalStorageService,
         private socialAuthService: SocialAuthService) {
-    // this.loading = this.authService.isLoading;
     this.isAuthenticated = this.authService.isAuthenticated;
   }
 
   ngOnInit(): void {
     this.socialAuthService.authState.subscribe((user) => {
       this.user = user;
-      this.loggedIn = (user != null);
+      const role = `ROLE_${this.user.provider}_${this.selectedRole}`
+      // this.loggedIn = (user != null);
       console.log(this.user)
+      const logReq:any = {
+        idToken: this.user.provider === "GOOGLE" ? this.user.idToken : this.user.authToken,
+        role:role,
+        provider:this.user.provider
+      }
+      this.handleLogin(logReq, true)
     });
 
     this.loginForm = new FormGroup({
@@ -59,32 +68,36 @@ export class LoginComponent implements OnInit {
 
    onSubmit() {
     this.loading = true;
-    this.authService.login(this.loginForm.value).subscribe({
-        next : (response) => {
-          if(response.status == 200){
-            this.jwt = response.data.data;
-            this.localStorageService.set("myrh-token", this.jwt.toString());
-            this.authService.setAuthState(true);
-            this.isAuthenticated = true;
-          }
-        },
+    this.handleLogin(this.loginForm.value, false);
+  }
 
-        error : (err) => {
-          this.authService.setAuthState(false);
-          this.isAuthenticated = false;
-          console.log(" inside fail login")
-          // this.router.navigate(['/login'])
-          //   .then(() => {
-          //     window.location.reload();
-          // });
-        },
-        complete : ()=> {}
-      }
-    ).add(() => {
-      this.loading = false;
-      this.displayCompletionAnimation(this.isAuthenticated);
-    });
 
+  handleLogin(request:any, isOauth:boolean){
+    this.authService.login(request, isOauth).subscribe({
+      next : (response) => {
+        if(response.status == 200){
+          this.jwt = response.data.data;
+          this.localStorageService.set("myrh-token", this.jwt.toString());
+          this.authService.setAuthState(true);
+          this.isAuthenticated = true;
+        }
+      },
+
+      error : (err) => {
+        this.authService.setAuthState(false);
+        this.isAuthenticated = false;
+        console.log(" inside fail login")
+        // this.router.navigate(['/login'])
+        //   .then(() => {
+        //     window.location.reload();
+        // });
+      },
+      complete : ()=> {}
+    }
+  ).add(() => {
+    this.loading = false;
+    this.displayCompletionAnimation(this.isAuthenticated);
+  });
   }
 
   displayCompletionAnimation(loginResult:Boolean){
@@ -111,6 +124,12 @@ export class LoginComponent implements OnInit {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
 
+
+  setRoleAndProceed(value:any){
+   console.log(" value " + value)
+   this.selectedRole = value;
+   this.proccedToLoginPage = true;
+  }
 
   hasRoute(route : string) : boolean {
     return this.router.url === route;

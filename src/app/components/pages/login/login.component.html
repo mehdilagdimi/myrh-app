@@ -1,121 +1,127 @@
 
-<div class="bg-white w-full relative flex min-h-screen flex-row justify-center overflow-hidden py-6 px-4 sm:py-12">
+<div class="bg-white w-full relative flex min-h-screen flex-row justify-center items-center overflow-hidden py-6 px-4 sm:py-12">
+  <ng-container *ngIf="proccedToLoginPage">
+      <div class="w-[450px] relative bg-white grid grid-cols-12 grid-rows-6 p-4 border shadow-md">
+        <div class="flex flex-col justify-around  col-start-2 col-end-12 row-start-2 row-end-6">
 
-    <div class="w-[450px] relative bg-white grid grid-cols-12 grid-rows-6 p-4 border shadow-md">
-      <div class="flex flex-col justify-around  col-start-2 col-end-12 row-start-2 row-end-6">
-
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" method="post" name="loginfom" id="formId">
-            <div class="w-full p-4 absolute left-0 top-0">
-              <a class="text-black text-sm font-thin cursor-pointer" routerLink="/">Home?</a>
-            </div>
-              <div>
-                  <img class="h-12 mx-auto mb-2" src="assets/logo.png" alt="logo">
-                  <div class="m-5 text-center rounded-sm">
-                      <!-- <div class="col-span-2 bg-red-200 "></div> -->
-                      <div class="border-l-4 border-custPurple rounded-sm">
-                          <input formControlName="email" class="w-full bg-gray-50 outline-none py-3 px-2" type="email" name="email"
-                                 placeholder="Email" required>
-                      </div>
-                      <div *ngIf="email?.invalid && (email?.dirty || email?.touched)"
-                              class="text-red-500 text-sm">
-
-                                  <div *ngIf="email?.errors?.['required']">
-                                      Email is required.
-                                  </div>
-                                  <div *ngIf="email?.errors?.['email']">
-                                      Email must be a valid email.
-                                  </div>
-                      </div>
-
-                  </div>
-                  <div class="m-5 text-center rounded-sm">
-                      <!-- <div class="col-span-2 bg-red-200 "></div> -->
-                      <div class="border-l-4 border-custPurple rounded-sm">
-                          <input formControlName="password" class="w-full bg-gray-50 outline-none py-3 px-2" type="password" name="password"
-                                 placeholder="Password" required>
-                      </div>
-                      <div *ngIf="password?.invalid && (password?.dirty || password?.touched)"
-                          class="text-red-500 text-sm">
-
-                                  <div *ngIf="password?.errors?.['required']">
-                                      Password is required.
-                                  </div>
-                                  <div *ngIf="password?.errors?.['pattern']">
-                                      Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.
-                                  </div>
-
-                          </div>
-                  </div>
-                      <!-- <div class="m-5 text-center rounded-sm">
-                          <div class="border-l-4 border-custPurple rounded-sm">
-                          </div>
-                      </div> -->
-                  <!-- <div>
-                          <div class="col-span-2 bg-red-200 ">
-
-                          </div>
-                          <h4 class="text-sm font-light italic text-red-500">Invalid credentials, try again</h4>
-                  </div> -->
-
-                    <!-- OAUTH SOCIAL  -->
-                    <hr class="my-8">
-
-                    <div class="flex flex-col items-center my-6">
-                      <div class="w-full flex justify-center items-center">
-                        <p class="text-sm font-thin mx-2">Continue with </p>
-                       <asl-google-signin-button  size="large"  shape="rectangular" type="icon"></asl-google-signin-button>
-                     </div>
-                     <p class="text-sm font-extralight">or</p>
-                     <div class="">
-                      <button
-                      type="button"
-                      class="px-4 flex items-center"
-                      (click)="signInWithFB()"
-                      >
-                        <p class="text-sm font-thin mx-2">Continue with </p>
-                        <div class="border px-2 py-1  rounded-md">
-                          <span class=" fab fa-facebook text-2xl text-blue-700"></span>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" method="post" name="loginfom" id="formId">
+              <div class="w-full p-4 absolute left-0 top-0">
+                <a class="text-black text-sm font-thin cursor-pointer" routerLink="/">Home?</a>
+              </div>
+                <div>
+                    <img class="h-12 mx-auto mb-2" src="assets/logo.png" alt="logo">
+                    <div class="m-5 text-center rounded-sm">
+                        <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                        <div class="border-l-4 border-custPurple rounded-sm">
+                            <input formControlName="email" class="w-full bg-gray-50 outline-none py-3 px-2" type="email" name="email"
+                                  placeholder="Email" required>
                         </div>
+                        <div *ngIf="email?.invalid && (email?.dirty || email?.touched)"
+                                class="text-red-500 text-sm">
+
+                                    <div *ngIf="email?.errors?.['required']">
+                                        Email is required.
+                                    </div>
+                                    <div *ngIf="email?.errors?.['email']">
+                                        Email must be a valid email.
+                                    </div>
+                        </div>
+
+                    </div>
+                    <div class="m-5 text-center rounded-sm">
+                        <!-- <div class="col-span-2 bg-red-200 "></div> -->
+                        <div class="border-l-4 border-custPurple rounded-sm">
+                            <input formControlName="password" class="w-full bg-gray-50 outline-none py-3 px-2" type="password" name="password"
+                                  placeholder="Password" required>
+                        </div>
+                        <div *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+                            class="text-red-500 text-sm">
+
+                                    <div *ngIf="password?.errors?.['required']">
+                                        Password is required.
+                                    </div>
+                                    <div *ngIf="password?.errors?.['pattern']">
+                                        Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character.
+                                    </div>
+
+                            </div>
+                    </div>
+                        <!-- <div class="m-5 text-center rounded-sm">
+                            <div class="border-l-4 border-custPurple rounded-sm">
+                            </div>
+                        </div> -->
+                    <!-- <div>
+                            <div class="col-span-2 bg-red-200 ">
+
+                            </div>
+                            <h4 class="text-sm font-light italic text-red-500">Invalid credentials, try again</h4>
+                    </div> -->
+
+                      <!-- OAUTH SOCIAL  -->
+                      <hr class="my-8">
+
+                      <div class="flex flex-row items-center justify-center my-6">
+                        <p class="text-sm font-extralight">Continue with</p>
+                        <div class="flex px-4 justify-center items-center">
+                          <!-- <p class="text-sm font-thin mx-2">Continue with </p> -->
+                          <asl-google-signin-button size="large"  shape="rectangular" type="icon"></asl-google-signin-button>
+                        </div>
+                        <p class="text-sm font-extralight">or</p>
+                      <div class="">
+                        <button
+                        type="button"
+                        class="px-4 flex items-center"
+                        (click)="signInWithFB()"
+                        >
+                          <!-- <p class="text-sm font-thin mx-2">Continue with </p> -->
+                          <div class="border px-2 py-1 rounded-md">
+                            <span class=" fab fa-facebook text-2xl text-blue-700"></span>
+                          </div>
+                        </button>
+                      </div>
+                      </div>
+
+
+                    <div class="w-full flex justify-center pt-6">
+                      <button type="submit" [disabled]="!loginForm.valid" id="submitBtnId"
+                              class='w-full mx-4 inline-block {{!loginForm.valid ? "bg-gray-400" : "bg-custPurple"}}  shadow-sm rounded-sm py-3 text-white font-regular'
+                      >
+                          SUBMIT
                       </button>
-                     </div>
+
                     </div>
 
 
-                  <div class="w-full flex justify-center pt-6">
-                    <button type="submit" [disabled]="!loginForm.valid" id="submitBtnId"
-                            class='w-full mx-4 inline-block {{!loginForm.valid ? "bg-gray-400" : "bg-custPurple"}}  shadow-sm rounded-sm py-3 text-white font-regular'
-                    >
-                        SUBMIT
-                    </button>
 
-                  </div>
+                </div>
+            </form>
+
+      </div>
+
+      <div class="w-full flex justify-end p-4 absolute bottom-0">
+        <a class="text-custPurple font-semibold cursor-pointer" routerLink="/signup">Sign up?</a>
+      </div>
 
 
+      <div *ngIf="loading" class="loading-overlay">
+          <div class="spinning-circle"></div>
+      </div>
 
-              </div>
-          </form>
+      <div *ngIf="loadingLoginResult" class="loading-overlay flex justify-center items-center my-auto mx-auto">
+        <div class="h-1/4">
+          <lottie-player  [src]="animationSrc"  background="transparent"  speed="1" loop  autoplay >
+          </lottie-player>
+        </div>
+      </div>
+
 
     </div>
+  </ng-container>
 
-  <div class="w-full flex justify-end p-4 absolute bottom-0">
-    <a class="text-custPurple font-semibold cursor-pointer" routerLink="/signup">Sign up?</a>
+
+  <app-login-role *ngIf="!proccedToLoginPage" (setLoginRoleEvntEmitter)="setRoleAndProceed($event)" ></app-login-role>
+
   </div>
-
-
-  <div *ngIf="loading" class="loading-overlay">
-      <div class="spinning-circle"></div>
-  </div>
-
-  <div *ngIf="loadingLoginResult" class="loading-overlay flex justify-center items-center my-auto mx-auto">
-    <div class="h-1/4">
-      <lottie-player  [src]="animationSrc"  background="transparent"  speed="1" loop  autoplay >
-      </lottie-player>
-    </div>
-  </div>
-
-
-</div>
-
 <!-- <div *ngIf="loading" class="loading-overlay">
   <div class="spinning-circle"></div>
 </div> -->

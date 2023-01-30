@@ -1,0 +1,12 @@
+<div class="w-[450px] relative bg-white grid grid-cols-12 grid-rows-6 p-4 border shadow-md">
+    <div class="flex flex-col justify-around  col-start-2 col-end-12 row-start-2 row-end-6">
+      <img class="h-12 mx-auto mb-6" src="assets/logo.png" alt="logo">
+      <div>
+        <button (click)="emitSelectedLoginRole('VISITOR')" class="mx-4  px-4 my-2  w-full shadow-sm rounded-sm py-3 text-white bg-custPurple font-regular">Continue as a Vistitor</button>
+      </div>
+      <div>
+        <button (click)="emitSelectedLoginRole('EMPLOYER')" class="mx-4 px-4 my-2 w-full  shadow-sm rounded-sm py-3 text-white bg-custPurple font-regular">Continue as an Employer</button>
+      </div>
+    </div>
+</div>
+

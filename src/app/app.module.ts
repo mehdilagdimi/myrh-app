@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
+
 import { AppRoutingModule } from './app-routing.module';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -25,6 +27,7 @@ import { FooterComponent } from './components/layout/footer/footer.component';
 import { AgentDashboardComponent } from './components/pages/agent-dashboard/agent-dashboard.component';
 import { EmployerSideBarComponent } from './components/layout/employer-side-bar/employer-side-bar.component';
 import { AgentSideBarComponent } from './components/agent-side-bar/agent-side-bar.component';
+import { LoginRoleComponent } from './components/login-role/login-role.component';
 @NgModule({
   schemas: [
      CUSTOM_ELEMENTS_SCHEMA
@@ -45,7 +48,8 @@ import { AgentSideBarComponent } from './components/agent-side-bar/agent-side-ba
     FooterComponent,
     AgentDashboardComponent,
     EmployerSideBarComponent,
-    AgentSideBarComponent
+    AgentSideBarComponent,
+    LoginRoleComponent
   ],
   imports: [
     BrowserModule,
@@ -54,10 +58,32 @@ import { AgentSideBarComponent } from './components/agent-side-bar/agent-side-ba
     NgxPaginationModule,
     Ng2SearchPipeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SocialLoginModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '81862977324-aehpi5f820aevtjmcdscj657eqiameos.apps.googleusercontent.com'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('566020085064578')
+          }
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -28,6 +28,8 @@ import { AgentDashboardComponent } from './components/pages/agent-dashboard/agen
 import { EmployerSideBarComponent } from './components/layout/employer-side-bar/employer-side-bar.component';
 import { AgentSideBarComponent } from './components/agent-side-bar/agent-side-bar.component';
 import { LoginRoleComponent } from './components/login-role/login-role.component';
+import { HomeComponent } from './components/pages/home/home.component';
+import { OauthCallBackComponent } from './components/oauth-call-back/oauth-call-back.component';
 @NgModule({
   schemas: [
      CUSTOM_ELEMENTS_SCHEMA
@@ -49,7 +51,9 @@ import { LoginRoleComponent } from './components/login-role/login-role.component
     AgentDashboardComponent,
     EmployerSideBarComponent,
     AgentSideBarComponent,
-    LoginRoleComponent
+    LoginRoleComponent,
+    HomeComponent,
+    OauthCallBackComponent
   ],
   imports: [
     BrowserModule,

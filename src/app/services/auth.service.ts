@@ -15,9 +15,9 @@ import { API_URL } from 'src/config/api.constants';
 export class AuthService {
   authStateSubject!:BehaviorSubject<boolean>;
   isAuthenticated!:boolean;
-  // isLoading!:boolean;
-  // authLoading = new Subject<boolean>();
 
+  fb_oauth = `${API_URL}/oauth2/authorization/facebook`;
+  fb_oauth_api_url = `${API_URL}/login/oauth2/code/facebook`
 
   constructor(
     private http: HttpClient,
@@ -25,15 +25,10 @@ export class AuthService {
     private jwtService:JwtHandlerService
     ) {
 
-    //  this.authLoading.subscribe((value:any) => this.isLoading = value)
-
-
      if(!this.jwtService.isTokenExpired()) {
-      console.log(" inside is not expired")
       // this.isAuthenticated = true;
       this.authStateSubject = new BehaviorSubject<boolean>(true);
     } else {
-      console.log(" inside is expired")
       // this.isAuthenticated = false;
       this.authStateSubject = new BehaviorSubject<boolean>(false);
     }
@@ -47,9 +42,6 @@ export class AuthService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     })
-
-    console.log(" new user " + newUser.email)
-    console.log(" new user " + newUser.password)
     return this.http
             .post<any>(
               `${API_URL}/signup`, newUser, {headers}
@@ -60,16 +52,16 @@ export class AuthService {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     })
-    // const isOauth = loginCredentials.idToken ? true : false;
+
     var url = `${API_URL}/auth?` + (isOauth ? `oauth=${isOauth}&provider=${loginCredentials.provider}` : "");
-    console.log(" auth eq ", `${API_URL}/auth?oauth=${isOauth}`);
+
+    // console.log(" auth eq ", `${API_URL}/auth?oauth=${isOauth}`);
 
     return this.http
             .post<Response<String>>(
               url, loginCredentials, {headers}
             );
   }
-
 
   setAuthState(authState:boolean){
     this.authStateSubject.next(authState);
@@ -79,31 +71,11 @@ export class AuthService {
     return this.authStateSubject.asObservable();
   }
 
-  // toggleIsLoading(isLoading:boolean):boolean{
-    // this.authLoading.next(isLoading);
-  //   return isLoading;
-  // }
-
 
   logout() {
-    console.log(" is auth inside service ", this.isAuthenticated)
+    // console.log(" is auth inside service ", this.isAuthenticated)
     localStorage.removeItem("myrh-token");
     this.setAuthState(false);
   }
-
-  // public isLoggedIn() {
-  //     return moment().isBefore(this.getExpiration());
-  // }
-
-
-  // isLoggedOut() {
-  //     return !this.isLoggedIn();
-  // }
-
-  // getExpiration() {
-  //     const expiration = localStorage.getItem("expires_at");
-  //     const expiresAt = JSON.parse(expiration);
-  //     return moment(expiresAt);
-  // }
 
 }

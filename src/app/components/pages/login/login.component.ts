@@ -8,6 +8,7 @@ import { Validators } from '@angular/forms';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { LoginRequest } from 'src/app/interfaces/loginRequest';
+import { API_URL } from 'src/config/api.constants';
 
 
 @Component({
@@ -37,8 +38,7 @@ export class LoginComponent implements OnInit {
     this.socialAuthService.authState.subscribe((user) => {
       this.user = user;
       const role = `ROLE_${this.user.provider}_${this.selectedRole}`
-      // this.loggedIn = (user != null);
-      console.log(this.user)
+      // console.log(this.user)
       const logReq:any = {
         idToken: this.user.provider === "GOOGLE" ? this.user.idToken : this.user.authToken,
         role:role,
@@ -62,7 +62,6 @@ export class LoginComponent implements OnInit {
 
 
   get email() { return this.loginForm.get('email'); }
-
   get password() { return this.loginForm.get('password'); }
 
 
@@ -86,11 +85,7 @@ export class LoginComponent implements OnInit {
       error : (err) => {
         this.authService.setAuthState(false);
         this.isAuthenticated = false;
-        console.log(" inside fail login")
-        // this.router.navigate(['/login'])
-        //   .then(() => {
-        //     window.location.reload();
-        // });
+        // console.log(" inside fail login")
       },
       complete : ()=> {}
     }
@@ -122,6 +117,10 @@ export class LoginComponent implements OnInit {
 
   signInWithFB(): void {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  redirectToFbOauth(){
+    window.location.href = this.authService.fb_oauth;
   }
 
 

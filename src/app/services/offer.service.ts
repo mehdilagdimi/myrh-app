@@ -3,7 +3,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Offer } from '../interfaces/offer';
-import { Response } from '../interfaces/response';
+import { Response, ResponseTwo } from '../interfaces/response';
 import { AddOfferRequest } from '../interfaces/addOfferRequest';
 import { AddOfferFieldsLists } from '../interfaces/addOfferFieldsLists';
 import { ICity } from '../interfaces/ICity';
@@ -34,7 +34,7 @@ export class OfferService {
     })
   }
 
-  getOffers(filters:FilterOperation[]) : Observable<Response<Offer[]>>{
+  getOffers(filters:FilterOperation[]) : Observable<ResponseTwo<any>>{
     if(filters != null){
       let filter_url = `${API_URL}/offers?`;
       console.log(" url " + filter_url)
@@ -50,7 +50,7 @@ export class OfferService {
 
      console.log(" url " + filter_url)
       return this.http
-      .get<Response<Offer[]>>(
+      .get<ResponseTwo<any>>(
         filter_url,
         {headers : this.headers}
         );
@@ -58,7 +58,7 @@ export class OfferService {
     }
     console.log(" no filter ")
     return this.http
-    .get<Response<Offer[]>>(
+    .get<ResponseTwo<Offer[]>>(
       `${API_URL}/offers`,{headers : this.headers}
       );
     }
@@ -72,10 +72,10 @@ export class OfferService {
     }
 
 
-  getEmployerOffers() : Observable<Response<Offer[]>>{
+  getEmployerOffers() : Observable<ResponseTwo<any>>{
     this.employer_id = this.jwtHandlerService.getUserId()!;
     return this.http
-    .get<Response<Offer[]>>(
+    .get<ResponseTwo<any>>(
             `${API_URL}/offers?employer=${this.employer_id}`, {headers : this.headers}
             );
     }

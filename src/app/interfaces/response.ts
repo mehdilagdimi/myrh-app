@@ -7,6 +7,13 @@ interface Response<T> {
   responseStatus: String;
   message: String;
 }
+interface ResponseTwo<T> {
+  date: String;
+  data:Map<String, Object>;
+  status: Number;
+  responseStatus: String;
+  message: String;
+}
 
 
-export { Response };
+export { Response,  ResponseTwo};

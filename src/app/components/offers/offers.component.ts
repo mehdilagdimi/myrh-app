@@ -3,7 +3,7 @@ import { AuthService } from './../../services/auth.service';
 import { OfferService } from './../../services/offer.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Offer } from 'src/app/interfaces/offer';
-import { Response } from '../../interfaces/response';
+import { Response, ResponseTwo } from '../../interfaces/response';
 import { PaginationInstance } from 'ngx-pagination';
 import { FilterOperation } from 'src/app/interfaces/filterOperation';
 
@@ -15,11 +15,13 @@ import { FilterOperation } from 'src/app/interfaces/filterOperation';
 export class OffersComponent implements OnInit {
   getForEmp!:Boolean;
   getForAgn!:Boolean;
-  response!:Response<Offer[]>;
+  response!:ResponseTwo<any>;
   offers!: Offer[];
   isLoading!:boolean;
   filters!:FilterOperation[];
   userRole!:String;
+
+
 
   constructor(private offerService: OfferService, private jwtService:JwtHandlerService) {
     this.userRole = this.jwtService.getRole()!;
@@ -44,7 +46,7 @@ export class OffersComponent implements OnInit {
   public responsive: boolean = false;
   public config: PaginationInstance = {
       id: 'advanced',
-      itemsPerPage: 10,
+      itemsPerPage: 3,
       currentPage: 1
   };
   public labels: any = {
@@ -72,17 +74,22 @@ export class OffersComponent implements OnInit {
       this.offerService
       .getOffers(this.filters)
       .subscribe( response => {
-        this.response = response
-        this.offers = this.response?.data.data;
+        this.response = response;
+        const data = new Map(Object.entries(this.response.data));
+        this.offers =  data.get("data") as Offer[];
+        console.log(" offers ")
+        console.log(this.offers)
         this.isLoading = false;
-        // console.log("data offers " + this.offers);
+        console.log(" total pages" )
+        console.log(data.get("totalPages"))
       });
     } else {
       this.offerService
       .getEmployerOffers()
       .subscribe( response => {
-        this.response = response
-        this.offers = this.response?.data.data;
+        this.response = response;
+        const data = new Map(Object.entries(this.response.data));
+        this.offers = data.get("data") as Offer[];
         this.isLoading = false;
         // console.log("data offers " + this.offers);
       });
